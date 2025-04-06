@@ -1,9 +1,10 @@
 with open("virtual_sai_debug.log", "a") as f:
     f.write("[BOOT] Streamlit app.py started\n")
-
 import streamlit as st
 import os
 from rag_brain import load_rag_engine, get_answer, log
+
+log("🚀 Streamlit app starting...")
 
 st.set_page_config(page_title="Virtual Sai", layout="centered")
 st.title("💬 Ask Virtual Sai")

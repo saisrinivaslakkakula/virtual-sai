@@ -1,3 +1,12 @@
+# Fix for transformers lazy loading
+try:
+    from transformers.utils import init_empty_weights
+except ImportError:
+    try:
+        from transformers.utils.model_parallel_utils import init_empty_weights
+    except ImportError:
+        init_empty_weights = None  # Fallback safety
+
 import time
 from llama_index.core.indices.vector_store import VectorStoreIndex
 from llama_index.core.indices.vector_store.retrievers import VectorIndexRetriever
@@ -7,37 +16,41 @@ from llama_index.core.prompts.prompts import QuestionAnswerPrompt
 from llama_index.llms.ollama import Ollama
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 
-LOG_FILE = "virtual_sai_debug.log"
+
+LOG_FILE = "/workspace/debug.log"
 
 def log(msg):
     timestamp = time.strftime("[%Y-%m-%d %H:%M:%S]")
     with open(LOG_FILE, "a") as f:
         f.write(f"{timestamp} {msg}\n")
+        f.flush()
 
 def load_rag_engine():
     start = time.time()
     log("🧠 Loading documents...")
     documents = SimpleDirectoryReader("data").load_data()
+    log(f"📄 {len(documents)} documents loaded.")
 
-    log("📦 Loading local embedding model...")
+    log("🔤 Loading embedding model...")
     embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en")
+    log("✅ Embedding model loaded.")
 
-    log("🤖 Loading LLM (Ollama)...")
+    log("🤖 Loading Mistral via Ollama...")
     llm = Ollama(model="mistral", temperature=0.2, request_timeout=60.0)
+    log("✅ LLM initialized.")
 
-    log("📚 Indexing documents...")
+    log("📚 Creating index...")
     index = VectorStoreIndex.from_documents(
         documents,
         llm=llm,
         embed_model=embed_model
     )
-
-    log(f"✅ Done. Brain loaded in {round(time.time() - start, 2)} seconds.")
+    log(f"✅ Brain ready in {round(time.time() - start, 2)} sec.")
     return index, llm, embed_model
 
 def get_answer(engine, query, persona_mode, llm, embed_model):
-    log(f"🧠 Query Received: {query}")
-    log(f"Persona: {persona_mode}")
+    log(f"💬 Query received: {query}")
+    log(f"👤 Persona: {persona_mode}")
 
     if "First-person" in persona_mode:
         prompt_template_str = (
@@ -64,15 +77,13 @@ def get_answer(engine, query, persona_mode, llm, embed_model):
 
     prompt = QuestionAnswerPrompt(prompt_template_str)
     retriever = VectorIndexRetriever(index=engine)
-
     query_engine = RetrieverQueryEngine.from_args(
         retriever=retriever,
         text_qa_template=prompt,
         llm=llm,
         embed_model=embed_model
     )
-
-    log("🧠 Executing query via query engine...")
+    log("🚀 Executing query...")
     response = query_engine.query(query)
-    log(f"✅ Response generated.")
+    log("✅ Response generated.")
     return response.response
