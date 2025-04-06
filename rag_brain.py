@@ -1,11 +1,14 @@
-# Fix for transformers lazy loading
 try:
     from transformers.utils import init_empty_weights
+    globals()['init_empty_weights'] = init_empty_weights
 except ImportError:
     try:
         from transformers.utils.model_parallel_utils import init_empty_weights
+        globals()['init_empty_weights'] = init_empty_weights
     except ImportError:
-        init_empty_weights = None  # Fallback safety
+        def init_empty_weights(*args, **kwargs):
+            raise NotImplementedError("init_empty_weights not available")
+        globals()['init_empty_weights'] = init_empty_weights
 
 import time
 from llama_index.core.indices.vector_store import VectorStoreIndex
@@ -17,7 +20,7 @@ from llama_index.llms.ollama import Ollama
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 
 
-LOG_FILE = "/workspace/debug.log"
+LOG_FILE = "../debug.log"
 
 def log(msg):
     timestamp = time.strftime("[%Y-%m-%d %H:%M:%S]")
@@ -36,7 +39,7 @@ def load_rag_engine():
     log("✅ Embedding model loaded.")
 
     log("🤖 Loading Mistral via Ollama...")
-    llm = Ollama(model="mistral", temperature=0.2, request_timeout=60.0)
+    llm = Ollama(model="phi", temperature=0.2, request_timeout=60.0)
     log("✅ LLM initialized.")
 
     log("📚 Creating index...")
