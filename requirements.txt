@@ -1,6 +1,11 @@
-llama-index==0.9.48
-openai
+# === CORE APP ===
 streamlit
-chromadb
+sentence-transformers
 pypdf
 docx2txt
+numpy==1.26.4
+
+# === LLAMA INDEX CORE + MODULES ===
+llama-index-core>=0.10.20
+llama-index-llms-ollama
+llama-index-embeddings-huggingface

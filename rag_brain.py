@@ -1,23 +1,35 @@
-from llama_index import (
-    VectorStoreIndex,
-    SimpleDirectoryReader,
-    ServiceContext,
-)
-from llama_index.indices.vector_store.retrievers import VectorIndexRetriever
-from llama_index.llms import OpenAI
-from llama_index.embeddings.openai import OpenAIEmbedding
-from llama_index.prompts.prompts import QuestionAnswerPrompt
-from llama_index.query_engine import RetrieverQueryEngine
+from llama_index.core.indices.vector_store import VectorStoreIndex
+from llama_index.core.indices.vector_store.retrievers import VectorIndexRetriever
+from llama_index.core import ServiceContext
+from llama_index.core.readers import SimpleDirectoryReader
+from llama_index.core.query_engine import RetrieverQueryEngine
+from llama_index.core.prompts.prompts import QuestionAnswerPrompt
+from llama_index.llms.ollama import Ollama
+from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+import time
 
 def load_rag_engine():
+    start = time.time()
+    print("🧠 Loading documents...")
     documents = SimpleDirectoryReader("data").load_data()
-    llm = OpenAI(temperature=0.2, model="gpt-3.5-turbo")
-    embed_model = OpenAIEmbedding()
-    service_context = ServiceContext.from_defaults(llm=llm, embed_model=embed_model)
-    index = VectorStoreIndex.from_documents(documents, service_context=service_context)
-    return index
 
-def get_answer(engine, query, persona_mode):
+    print("📦 Loading local embedding model...")
+    embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en")
+
+    print("🤖 Loading LLM...")
+    llm = Ollama(model="phi", temperature=0.2, request_timeout=60.0)
+  # MS2 swap later
+    print("📚 Indexing documents...")
+    index = VectorStoreIndex.from_documents(
+    documents,
+    llm=llm,
+    embed_model=embed_model
+)
+
+    print(f"✅ Done. Brain loaded in {round(time.time() - start, 2)} seconds.")
+    return index, llm, embed_model
+
+def get_answer(engine, query, persona_mode, llm, embed_model):
     if "First-person" in persona_mode:
         prompt_template_str = (
             "You are Sai Srinivas, a software engineer. Answer in first-person point of view. "
@@ -47,9 +59,11 @@ def get_answer(engine, query, persona_mode):
     retriever = VectorIndexRetriever(index=engine)
 
     custom_query_engine = RetrieverQueryEngine.from_args(
-        retriever=retriever,
-        text_qa_template=prompt,
-    )
+    retriever=retriever,
+    text_qa_template=prompt,
+    llm=llm,
+    embed_model=embed_model
+)
 
     response = custom_query_engine.query(query)
     return response.response
