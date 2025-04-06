@@ -1,0 +1,850 @@
+[BOOT] Streamlit app.py started
+[BOOT] Streamlit app.py started
+[BOOT] Streamlit app.py started
+[BOOT] Streamlit app.py started
+[BOOT] Streamlit app.py started
+[BOOT] Streamlit app.py started
+[BOOT] Streamlit app.py started
+[BOOT] Streamlit app.py started
+[BOOT] Streamlit app.py started
+[BOOT] Streamlit app.py started
+[BOOT] Streamlit app.py started
+[2025-04-06 18:10:18] 🚀 Streamlit app starting...
+[2025-04-06 18:10:18] 🔁 Initializing RAG brain...
+2025-04-06 18:10:18,561 - INFO - Initializing LLM...
+2025-04-06 18:10:18,562 - INFO - Initializing embedding model...
+2025-04-06 18:10:18,628 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-04-06 18:10:26,678 - INFO - 2 prompts are loaded, with the keys: ['query', 'text']
+2025-04-06 18:10:27,854 - INFO - Loading documents...
+2025-04-06 18:10:27,861 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:10:27,885 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:10:27,890 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:10:27,895 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:10:27,900 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:10:47,383 - INFO - RAG engine initialized successfully
+[BOOT] Streamlit app.py started
+[2025-04-06 18:11:13] 🚀 Streamlit app starting...
+[2025-04-06 18:11:13] 🔍 Custom Question: what is his last name
+[2025-04-06 18:11:13] 💬 Query received: what is his last name
+[2025-04-06 18:11:13] 👤 Persona: 🧑 Speak as Sai (First-person)
+[BOOT] Streamlit app.py started
+[2025-04-06 18:19:23] 🚀 Streamlit app starting...
+[2025-04-06 18:19:23] 🔁 Initializing RAG brain...
+2025-04-06 18:19:23,147 - INFO - Initializing LLM...
+2025-04-06 18:19:23,148 - INFO - Initializing embedding model...
+2025-04-06 18:19:23,233 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-04-06 18:19:25,415 - INFO - 2 prompts are loaded, with the keys: ['query', 'text']
+2025-04-06 18:19:25,670 - INFO - Loading documents...
+2025-04-06 18:19:25,671 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:19:25,678 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:19:25,680 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:19:25,682 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:19:25,684 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:19:40,243 - INFO - RAG engine initialized successfully
+[BOOT] Streamlit app.py started
+[2025-04-06 18:19:48] 🚀 Streamlit app starting...
+[2025-04-06 18:19:48] 🔍 Custom Question: what's Sai's hobbies?
+[2025-04-06 18:19:48] 💬 Query received: what's Sai's hobbies?
+[2025-04-06 18:19:48] 👤 Persona: 🧑 Speak as Sai (First-person)
+[BOOT] Streamlit app.py started
+[2025-04-06 18:21:42] 🚀 Streamlit app starting...
+[2025-04-06 18:21:42] 🔁 Initializing RAG brain...
+2025-04-06 18:21:42,132 - INFO - Initializing LLM...
+2025-04-06 18:21:42,132 - INFO - Initializing embedding model...
+2025-04-06 18:21:42,179 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-04-06 18:21:44,552 - INFO - 2 prompts are loaded, with the keys: ['query', 'text']
+2025-04-06 18:21:44,770 - INFO - Loading documents...
+2025-04-06 18:21:44,772 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:21:44,776 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:21:44,778 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:21:44,780 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:21:44,782 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:21:56,371 - INFO - RAG engine initialized successfully
+[BOOT] Streamlit app.py started
+[2025-04-06 18:22:02] 🚀 Streamlit app starting...
+[2025-04-06 18:22:02] 🔍 Custom Question: what's Sai's hobbies?
+[2025-04-06 18:22:02] 💬 Query received: what's Sai's hobbies?
+[2025-04-06 18:22:02] 👤 Persona: 🧑 Speak as Sai (First-person)
+[BOOT] Streamlit app.py started
+[2025-04-06 18:23:09] 🚀 Streamlit app starting...
+[2025-04-06 18:23:09] 🔁 Initializing RAG brain...
+2025-04-06 18:23:09,333 - INFO - Initializing LLM...
+2025-04-06 18:23:09,334 - INFO - Initializing embedding model...
+2025-04-06 18:23:09,418 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-04-06 18:23:11,809 - INFO - 2 prompts are loaded, with the keys: ['query', 'text']
+2025-04-06 18:23:12,134 - INFO - Loading documents...
+2025-04-06 18:23:12,136 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:23:12,141 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:23:12,142 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:23:12,144 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:23:12,145 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:23:27,321 - INFO - RAG engine initialized successfully
+[BOOT] Streamlit app.py started
+[2025-04-06 18:23:41] 🚀 Streamlit app starting...
+[2025-04-06 18:23:41] 🔍 Custom Question: hey sai how are you doing?
+[2025-04-06 18:23:41] 💬 Query received: hey sai how are you doing?
+[2025-04-06 18:23:41] 👤 Persona: 🧑 Speak as Sai (First-person)
+[BOOT] Streamlit app.py started
+[2025-04-06 18:24:53] 🚀 Streamlit app starting...
+[2025-04-06 18:24:53] 🔁 Initializing RAG brain...
+2025-04-06 18:24:53,262 - INFO - Initializing LLM...
+2025-04-06 18:24:53,262 - INFO - Initializing embedding model...
+2025-04-06 18:24:53,349 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-04-06 18:24:55,669 - INFO - 2 prompts are loaded, with the keys: ['query', 'text']
+2025-04-06 18:24:56,095 - INFO - Loading documents...
+2025-04-06 18:24:56,097 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:24:56,107 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:24:56,115 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:24:56,119 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:24:56,121 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:25:07,793 - INFO - RAG engine initialized successfully
+[BOOT] Streamlit app.py started
+[2025-04-06 18:25:24] 🚀 Streamlit app starting...
+[2025-04-06 18:25:24] 🔍 Custom Question: Sai, what are your views on containerization vs monolith? Do you have experience in both?
+[2025-04-06 18:25:24] 💬 Query received: Sai, what are your views on containerization vs monolith? Do you have experience in both?
+[2025-04-06 18:25:24] 👤 Persona: 🧑 Speak as Sai (First-person)
+[2025-04-06 18:25:24] 🚀 Executing query...
+[2025-04-06 18:25:25] ✅ Response generated.
+[BOOT] Streamlit app.py started
+[2025-04-06 18:25:35] 🚀 Streamlit app starting...
+[2025-04-06 18:25:35] 📌 Button clicked: 🏆 Capgemini Innovation Award
+[2025-04-06 18:25:35] 💬 Query received: What was the Capgemini project that got nominated for the Aegis Graham Bell Award?
+[2025-04-06 18:25:35] 👤 Persona: 🧑 Speak as Sai (First-person)
+[2025-04-06 18:25:35] 🚀 Executing query...
+[2025-04-06 18:25:36] ✅ Response generated.
+[2025-04-06 18:25:36] 🔍 Custom Question: Sai, what are your views on containerization vs monolith? Do you have experience in both?
+[2025-04-06 18:25:36] 💬 Query received: Sai, what are your views on containerization vs monolith? Do you have experience in both?
+[2025-04-06 18:25:36] 👤 Persona: 🧑 Speak as Sai (First-person)
+[2025-04-06 18:25:36] 🚀 Executing query...
+[2025-04-06 18:25:36] ✅ Response generated.
+[BOOT] Streamlit app.py started
+[2025-04-06 18:26:08] 🚀 Streamlit app starting...
+[2025-04-06 18:26:08] 🔍 Custom Question: What's Sai's email?
+[2025-04-06 18:26:08] 💬 Query received: What's Sai's email?
+[2025-04-06 18:26:08] 👤 Persona: 🧑 Speak as Sai (First-person)
+[2025-04-06 18:26:08] 🚀 Executing query...
+[2025-04-06 18:26:08] ✅ Response generated.
+[BOOT] Streamlit app.py started
+[2025-04-06 18:26:14] 🚀 Streamlit app starting...
+[2025-04-06 18:26:14] 🔍 Custom Question: hi
+[2025-04-06 18:26:14] 💬 Query received: hi
+[2025-04-06 18:26:14] 👤 Persona: 🧑 Speak as Sai (First-person)
+[2025-04-06 18:26:14] 🚀 Executing query...
+[2025-04-06 18:26:15] ✅ Response generated.
+[BOOT] Streamlit app.py started
+[2025-04-06 18:28:00] 🚀 Streamlit app starting...
+[2025-04-06 18:28:00] 🔁 Initializing RAG brain...
+2025-04-06 18:28:00,348 - INFO - Initializing LLM...
+2025-04-06 18:28:00,349 - INFO - Initializing embedding model...
+2025-04-06 18:28:00,454 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-04-06 18:28:02,538 - INFO - 2 prompts are loaded, with the keys: ['query', 'text']
+2025-04-06 18:28:02,783 - INFO - Loading documents...
+2025-04-06 18:28:02,786 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:28:02,796 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:28:02,798 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:28:02,801 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:28:02,803 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:28:18,155 - INFO - RAG engine initialized successfully
+[BOOT] Streamlit app.py started
+[2025-04-06 18:29:05] 🚀 Streamlit app starting...
+[2025-04-06 18:29:05] 🔍 Custom Question: what's Sai's hobbies?
+[2025-04-06 18:29:05] 💬 Query received: what's Sai's hobbies?
+[2025-04-06 18:29:05] 👤 Persona: 🧑 Speak as Sai (First-person)
+[2025-04-06 18:29:05] 🚀 Executing query...
+[2025-04-06 18:29:06] ✅ Response generated.
+[BOOT] Streamlit app.py started
+[2025-04-06 18:29:24] 🚀 Streamlit app starting...
+[2025-04-06 18:29:24] 🔍 Custom Question: hi
+[2025-04-06 18:29:24] 💬 Query received: hi
+[2025-04-06 18:29:24] 👤 Persona: 🧑 Speak as Sai (First-person)
+[2025-04-06 18:29:24] 🚀 Executing query...
+[2025-04-06 18:29:25] ✅ Response generated.
+[BOOT] Streamlit app.py started
+[2025-04-06 18:31:51] 🚀 Streamlit app starting...
+[2025-04-06 18:31:51] 🔁 Initializing RAG brain...
+2025-04-06 18:31:51,957 - INFO - Initializing LLM...
+2025-04-06 18:31:51,957 - INFO - Initializing embedding model...
+2025-04-06 18:31:52,001 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-04-06 18:31:54,016 - INFO - 2 prompts are loaded, with the keys: ['query', 'text']
+2025-04-06 18:31:54,279 - INFO - Loading documents...
+2025-04-06 18:31:54,281 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:31:54,286 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:31:54,288 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:31:54,289 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:31:54,290 - WARNING - `llama-index-readers-file` package not found, some file readers will not be available if not provided by the `file_extractor` parameter.
+2025-04-06 18:32:05,556 - INFO - RAG engine initialized successfully
+[BOOT] Streamlit app.py started
+[2025-04-06 18:32:12] 🚀 Streamlit app starting...
+[2025-04-06 18:32:12] 📌 Button clicked: ☁️ My Work at AWS
+[2025-04-06 18:32:12] 💬 Query received: Tell me about your work on AWS RDS and DB2 migration.
+[2025-04-06 18:32:12] 👤 Persona: 🧑 Speak as Sai (First-person)
+[2025-04-06 18:32:12] 🚀 Executing query...
+[2025-04-06 18:32:12] ✅ Response generated: Empty Response
+[BOOT] Streamlit app.py started
+[2025-04-06 18:32:22] 🚀 Streamlit app starting...
+[2025-04-06 18:32:22] 📌 Button clicked: 🛠️ My Walmart Ads Project
+[2025-04-06 18:32:22] 💬 Query received: Can you describe your project on Meta campaign automation at Walmart?
+[2025-04-06 18:32:22] 👤 Persona: 🧑 Speak as Sai (First-person)
+[2025-04-06 18:32:22] 🚀 Executing query...
+[2025-04-06 18:32:23] ✅ Response generated: Empty Response
+[BOOT] Streamlit app.py started
+[2025-04-06 18:32:30] 🚀 Streamlit app starting...
+[2025-04-06 18:32:30] 🔍 Custom Question: hi
+[2025-04-06 18:32:30] 💬 Query received: hi
+[2025-04-06 18:32:30] 👤 Persona: 🧑 Speak as Sai (First-person)
+[2025-04-06 18:32:30] 🚀 Executing query...
+[2025-04-06 18:32:30] ✅ Response generated: Empty Response
+[BOOT] Streamlit app.py started
+[2025-04-06 18:34:45] 🚀 Streamlit app starting...
+[2025-04-06 18:34:45] 📁 Uploaded: Sai Srinivas Lakkakula-Software Development_resume_TikTok_AdsMeasurement.pdf
+[2025-04-06 18:34:45] 🔍 Custom Question: hi
+[2025-04-06 18:34:45] 💬 Query received: hi
+[2025-04-06 18:34:45] 👤 Persona: 🧑 Speak as Sai (First-person)
+[2025-04-06 18:34:45] 🚀 Executing query...
+[2025-04-06 18:34:46] ✅ Response generated: Empty Response
+[BOOT] Streamlit app.py started
+[2025-04-06 18:34:48] 🚀 Streamlit app starting...
+[2025-04-06 18:34:48] 📁 Uploaded: Sai Srinivas Lakkakula-Software Development_resume_TikTok_AdsMeasurement.pdf
+2025-04-06 18:34:48,126 - INFO - Initializing LLM...
+2025-04-06 18:34:48,132 - INFO - Initializing embedding model...
+2025-04-06 18:34:48,141 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-04-06 18:34:49,715 - INFO - 2 prompts are loaded, with the keys: ['query', 'text']
+[2025-04-06 18:34:55] 🧠 Brain refreshed with uploaded documents.
+[2025-04-06 18:34:55] 🔍 Custom Question: hi
+[2025-04-06 18:34:55] 💬 Query received: hi
+[2025-04-06 18:34:55] 👤 Persona: 🧑 Speak as Sai (First-person)
+[2025-04-06 18:34:55] 🚀 Executing query...
+[2025-04-06 18:34:55] ✅ Response generated: Empty Response
+[BOOT] Streamlit app.py started
+[2025-04-06 18:35:02] 🚀 Streamlit app starting...
+[2025-04-06 18:35:02] 📁 Uploaded: Sai Srinivas Lakkakula-Software Development_resume_TikTok_AdsMeasurement.pdf
+[2025-04-06 18:35:02] 🔍 Custom Question: hisxx
+[2025-04-06 18:35:02] 💬 Query received: hisxx
+[2025-04-06 18:35:02] 👤 Persona: 🧑 Speak as Sai (First-person)
+[2025-04-06 18:35:02] 🚀 Executing query...
+[2025-04-06 18:35:03] ✅ Response generated: Empty Response
+[BOOT] Streamlit app.py started
+[2025-04-06 18:37:49] 🚀 Streamlit app starting...
+[2025-04-06 18:37:49] 🔁 Initializing RAG brain...
+2025-04-06 18:37:49,625 - INFO - Initializing LLM...
+2025-04-06 18:37:49,626 - INFO - Testing LLM connection...
+2025-04-06 18:37:49,707 - INFO - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 404 Not Found"
+2025-04-06 18:37:49,707 - ERROR - Failed to connect to Ollama: model "llama2" not found, try pulling it first (status code: 404)
+2025-04-06 18:37:49,707 - ERROR - Error initializing RAG engine: Could not connect to Ollama. Please ensure Ollama is running with 'llama2' model.
+[BOOT] Streamlit app.py started
+[2025-04-06 18:40:36] 🚀 Streamlit app starting...
+[2025-04-06 18:40:36] 🔁 Initializing RAG brain...
+2025-04-06 18:40:36,506 - INFO - Initializing LLM...
+2025-04-06 18:40:36,506 - INFO - Initializing embedding model...
+2025-04-06 18:40:36,574 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-04-06 18:40:38,837 - INFO - 2 prompts are loaded, with the keys: ['query', 'text']
+2025-04-06 18:40:39,098 - INFO - Loading documents...
+2025-04-06 18:40:40,154 - WARNING - Ignoring wrong pointing object 6 0 (offset 0)
+2025-04-06 18:40:40,154 - WARNING - Ignoring wrong pointing object 8 0 (offset 0)
+2025-04-06 18:40:40,155 - WARNING - Ignoring wrong pointing object 15 0 (offset 0)
+2025-04-06 18:40:40,155 - WARNING - Ignoring wrong pointing object 30 0 (offset 0)
+2025-04-06 18:40:40,155 - WARNING - Ignoring wrong pointing object 48 0 (offset 0)
+2025-04-06 18:40:40,155 - WARNING - Ignoring wrong pointing object 51 0 (offset 0)
+2025-04-06 18:40:40,635 - WARNING - Ignoring wrong pointing object 6 0 (offset 0)
+2025-04-06 18:40:40,635 - WARNING - Ignoring wrong pointing object 8 0 (offset 0)
+2025-04-06 18:40:40,635 - WARNING - Ignoring wrong pointing object 10 0 (offset 0)
+2025-04-06 18:40:40,635 - WARNING - Ignoring wrong pointing object 12 0 (offset 0)
+2025-04-06 18:40:40,635 - WARNING - Ignoring wrong pointing object 17 0 (offset 0)
+2025-04-06 18:40:40,635 - WARNING - Ignoring wrong pointing object 19 0 (offset 0)
+2025-04-06 18:40:40,636 - WARNING - Ignoring wrong pointing object 21 0 (offset 0)
+2025-04-06 18:40:40,636 - WARNING - Ignoring wrong pointing object 23 0 (offset 0)
+2025-04-06 18:40:40,636 - WARNING - Ignoring wrong pointing object 25 0 (offset 0)
+2025-04-06 18:40:40,636 - WARNING - Ignoring wrong pointing object 27 0 (offset 0)
+2025-04-06 18:40:40,636 - WARNING - Ignoring wrong pointing object 29 0 (offset 0)
+2025-04-06 18:40:40,636 - WARNING - Ignoring wrong pointing object 31 0 (offset 0)
+2025-04-06 18:40:40,636 - WARNING - Ignoring wrong pointing object 33 0 (offset 0)
+2025-04-06 18:40:40,636 - WARNING - Ignoring wrong pointing object 39 0 (offset 0)
+2025-04-06 18:40:40,636 - WARNING - Ignoring wrong pointing object 41 0 (offset 0)
+2025-04-06 18:40:40,636 - WARNING - Ignoring wrong pointing object 43 0 (offset 0)
+2025-04-06 18:40:40,743 - WARNING - Ignoring wrong pointing object 6 0 (offset 0)
+2025-04-06 18:40:40,743 - WARNING - Ignoring wrong pointing object 8 0 (offset 0)
+2025-04-06 18:40:40,743 - WARNING - Ignoring wrong pointing object 10 0 (offset 0)
+2025-04-06 18:40:40,743 - WARNING - Ignoring wrong pointing object 12 0 (offset 0)
+2025-04-06 18:40:40,743 - WARNING - Ignoring wrong pointing object 17 0 (offset 0)
+2025-04-06 18:40:40,743 - WARNING - Ignoring wrong pointing object 19 0 (offset 0)
+2025-04-06 18:40:40,743 - WARNING - Ignoring wrong pointing object 21 0 (offset 0)
+2025-04-06 18:40:40,743 - WARNING - Ignoring wrong pointing object 23 0 (offset 0)
+2025-04-06 18:40:40,743 - WARNING - Ignoring wrong pointing object 25 0 (offset 0)
+2025-04-06 18:40:40,743 - WARNING - Ignoring wrong pointing object 27 0 (offset 0)
+2025-04-06 18:40:40,743 - WARNING - Ignoring wrong pointing object 29 0 (offset 0)
+2025-04-06 18:40:40,743 - WARNING - Ignoring wrong pointing object 31 0 (offset 0)
+2025-04-06 18:40:40,743 - WARNING - Ignoring wrong pointing object 33 0 (offset 0)
+2025-04-06 18:40:40,744 - WARNING - Ignoring wrong pointing object 39 0 (offset 0)
+2025-04-06 18:40:40,744 - WARNING - Ignoring wrong pointing object 41 0 (offset 0)
+2025-04-06 18:40:40,744 - WARNING - Ignoring wrong pointing object 43 0 (offset 0)
+2025-04-06 18:40:40,850 - WARNING - Ignoring wrong pointing object 6 0 (offset 0)
+2025-04-06 18:40:40,850 - WARNING - Ignoring wrong pointing object 8 0 (offset 0)
+2025-04-06 18:40:40,851 - WARNING - Ignoring wrong pointing object 10 0 (offset 0)
+2025-04-06 18:40:40,851 - WARNING - Ignoring wrong pointing object 12 0 (offset 0)
+2025-04-06 18:40:40,851 - WARNING - Ignoring wrong pointing object 17 0 (offset 0)
+2025-04-06 18:40:40,851 - WARNING - Ignoring wrong pointing object 19 0 (offset 0)
+2025-04-06 18:40:40,851 - WARNING - Ignoring wrong pointing object 21 0 (offset 0)
+2025-04-06 18:40:40,851 - WARNING - Ignoring wrong pointing object 23 0 (offset 0)
+2025-04-06 18:40:40,851 - WARNING - Ignoring wrong pointing object 25 0 (offset 0)
+2025-04-06 18:40:40,851 - WARNING - Ignoring wrong pointing object 27 0 (offset 0)
+2025-04-06 18:40:40,851 - WARNING - Ignoring wrong pointing object 29 0 (offset 0)
+2025-04-06 18:40:40,851 - WARNING - Ignoring wrong pointing object 31 0 (offset 0)
+2025-04-06 18:40:40,851 - WARNING - Ignoring wrong pointing object 33 0 (offset 0)
+2025-04-06 18:40:40,851 - WARNING - Ignoring wrong pointing object 39 0 (offset 0)
+2025-04-06 18:40:40,851 - WARNING - Ignoring wrong pointing object 41 0 (offset 0)
+2025-04-06 18:40:40,851 - WARNING - Ignoring wrong pointing object 43 0 (offset 0)
+2025-04-06 18:40:41,032 - INFO - Loaded 28 documents
+2025-04-06 18:40:41,032 - INFO - Document 1: 2740 chars, starts with: 1.  RAG  Details,  Goals,  and  Expectations  
+Goals:  
+●  Centralized  Knowledge  Base:  
+The
+ 
+goal
+ 
+is
+ 
+to
+ 
+create
+ 
+a
+ 
+detailed
+ 
+and
+ 
+continually
+ 
+evolving
+ 
+repository
+ 
+of
+ 
+all
+ 
+your
+ 
+...
+2025-04-06 18:40:41,032 - INFO - Document 2: 2690 chars, starts with: ■  Role:  Worked  as  part  of  a  specialized  team  within  AWS  tasked  with  
+expanding
+ 
+the
+ 
+database
+ 
+offerings
+ 
+in
+ 
+RDS
+ 
+(Relational
+ 
+Database
+ 
+Service).
+ 
+My
+ 
+focus
+ 
+was
+ 
+on
+ 
+integ...
+2025-04-06 18:40:41,032 - INFO - Document 3: 2794 chars, starts with: ●  Team:  Display  Paid  Social  (DPS)  ○  Joined  the  Marketing  Technology  team  within  Walmart  Global  Tech  as  a  
+Software
+ 
+Engineer
+ 
+contractor.
+ ○  The  team  is  responsible  for  autom...
+2025-04-06 18:40:41,032 - INFO - Document 4: 2840 chars, starts with: ○  API  Development:  Developed  Java-based  APIs  that  enhanced  error  reporting  
+for
+ 
+WebEx
+ 
+services.
+ 
+The
+ 
+APIs
+ 
+improved
+ 
+how
+ 
+logs
+ 
+were
+ 
+retrieved,
+ 
+enabling
+ 
+more
+ 
+efficient
+ 
+p...
+2025-04-06 18:40:41,032 - INFO - Document 5: 2230 chars, starts with: 2.  Work  Log,  Journal  of  Sai  Srinivas  from  the  Document  Uploaded  
+(continued)
+  
+Key  Projects:  
+1.  MySmart  Cal  (Cloud-Based  Shared  Calendar  Platform)  
+●  Overview:  Designed  a  clo...
+2025-04-06 18:40:41,032 - INFO - Document 6: 2226 chars, starts with: ○  Outcome:  The  project  was  a  successful  proof  of  concept,  demonstrating  
+scalable
+ 
+microservice-based
+ 
+development
+ 
+for
+ 
+a
+ 
+large-scale
+ 
+food
+ 
+delivery
+ 
+platform.
+ 
+ 
+3.  Airplane  ...
+2025-04-06 18:40:41,032 - INFO - Document 7: 2287 chars, starts with: ■  Handles  search  engine  campaigns,  primarily  for  Google.  2.  AFFL  Coop  (Affiliates  Marketing):  ■  Manages  affiliate  marketing  campaigns  for  Walmart  products  through  
+external
+ 
+aff...
+2025-04-06 18:40:41,032 - INFO - Document 8: 2584 chars, starts with: ○  Backend:  Java  Spring  Boot.  ○  Communication:  RESTful  services  with  GraphQL  payloads  for  queries  and  
+mutations.
+ ○  Database:  MySQL  is  used  to  store  campaign  data  and  operatio...
+2025-04-06 18:40:41,032 - INFO - Document 9: 2144 chars, starts with: ○  CREATE Operations:  A  unique  coop_id is  generated,  and  shell  data  (such  as  
+campaign
+ 
+name,
+ 
+start/end
+ 
+dates)
+ 
+is
+ 
+inserted
+ 
+into
+ 
+the
+ coops table.  The  rest  of  the  
+campaign
+...
+2025-04-06 18:40:41,032 - INFO - Document 10: 703 chars, starts with: ●  Detailed  interactions  with  the  Meta  for  Business  API  for  various  campaign  operations  
+(e.g.,
+ CREATE,  UPDATE,  etc.).  ●  Specific  challenges  and  optimizations  needed  to  ensure  ...
+2025-04-06 18:40:41,032 - INFO - Document 11: 1942 chars, starts with: Introduction  Full Name Sai Srinivas Lakkakula Email saisrinivas.lakka@gmail.com Phone - LinkedIn https://www.linkedin.com/in/saisrinivasl/ GitHub https://github.com/saisrinivaslakkakula Portfolio Web...
+2025-04-06 18:40:41,032 - INFO - Document 12: 2738 chars, starts with: note that requests, whether in response to failures or customer needs, can only be initiated from the Control Plane. To sum up, envision the Control Plane as the commanding officer of the RDS Instance...
+2025-04-06 18:40:41,032 - INFO - Document 13: 2582 chars, starts with: end-to-end service to facilitate this. The service operates through a recurring job within the host manager. This job is responsible for uploading logs to the AWS CloudWatch service.  The introduction...
+2025-04-06 18:40:41,032 - INFO - Document 14: 2545 chars, starts with: Notes:   During my time as a Software Engineer Intern at Cisco's Webex Collaboration Business Unit, I had the opportunity to contribute to the Webex suite, a product designed for team collaboration an...
+2025-04-06 18:40:41,032 - INFO - Document 15: 2884 chars, starts with: This accomplishment holds a special place for me. We actively contributed to the development of an internal mobile application named "Namaste Capgemini." This initiative began during the early days of...
+2025-04-06 18:40:41,033 - INFO - Document 16: 2984 chars, starts with: automation solutions for both internal teams and external clients. One particular challenge I undertook was to create a check-style tool for mainframe COBOL applications, a task typically hampered by ...
+2025-04-06 18:40:41,033 - INFO - Document 17: 2815 chars, starts with: skills. MY360 addresses this problem by enabling HR personnel to identify resources based on skill shortages rather than predefined skill families.  For example, if an employee has a secondary skill a...
+2025-04-06 18:40:41,033 - INFO - Document 18: 3027 chars, starts with: a platform that streamlines the organization and management of these events, making them more accessible and engaging for participants.  Furthermore, I worked on crafting customized websites tailored ...
+2025-04-06 18:40:41,033 - INFO - Document 19: 2767 chars, starts with: learning, my penchant for innovation, and my unwavering commitment to mastering new technologies.  As I reflect on those early days, I'm reminded that even the smallest steps can lead to monumental ac...
+2025-04-06 18:40:41,033 - INFO - Document 20: 3008 chars, starts with: delivery applications called Uber Eats. The end goal of the project is to design the OMS system with 75% of estimated replica functionality of original application. System Design: Persona: In the OMS ...
+2025-04-06 18:40:41,033 - INFO - Document 21: 3327 chars, starts with: • User and restaurant address is simplified by adding main field as address and the document is subdivided into street, city, state etc.  Airplane Crash Analysis using the methods of Data Mining  You ...
+2025-04-06 18:40:41,033 - INFO - Document 22: 642 chars, starts with: The objective of this project is to identify insincere text within the Quora platform, encompassing both question text, user responses, and comments. Manual inspection of content can be a laborious ta...
+2025-04-06 18:40:41,033 - INFO - Document 23: 2883 chars, starts with: …Continued 
+SAI SRINIVAS LAKKAKULA, MS, CMPE 
+ (669) 204-9148  saisrinivas.lakka@gmail.com  www.linkedin.com/in/saisrinivasl    GUIDING FRONT-END AND BACK-END SOFTWARE DEVELOPMENT SOLUTIONS  Solution-...
+2025-04-06 18:40:41,033 - INFO - Document 24: 2948 chars, starts with: SAI SRINIVAS LAKKAKULA Page 2 w (669) 204-9148 w saisrinivas.lakka@gmail.com 
+4 Spearheaded expansion of AWS RDS's engine repertoire, introducing IBM DB2 engine, increasing client satisfaction by 20%....
+2025-04-06 18:40:41,033 - INFO - Document 25: 2968 chars, starts with: …Continued 
+SAI SRINIVAS LAKKAKULA, MS, CMPE 
+ (669) 204-9148  saisrinivas.lakka@gmail.com  www.linkedin.com/in/saisrinivasl    GUIDING FRONT-END AND BACK-END SOFTWARE DEVELOPMENT SOLUTIONS  Solution-...
+2025-04-06 18:40:41,033 - INFO - Document 26: 2948 chars, starts with: SAI SRINIVAS LAKKAKULA Page 2 w (669) 204-9148 w saisrinivas.lakka@gmail.com 
+4 Spearheaded expansion of AWS RDS's engine repertoire, introducing IBM DB2 engine, increasing client satisfaction by 20%....
+2025-04-06 18:40:41,033 - INFO - Document 27: 2891 chars, starts with: …Continued 
+SAI SRINIVAS LAKKAKULA, MS, CMPE 
+ (669) 204-9148  saisrinivas.lakka@gmail.com  www.linkedin.com/in/saisrinivasl    GUIDING FRONT-END AND BACK-END SOFTWARE DEVELOPMENT SOLUTIONS  Solution-...
+2025-04-06 18:40:41,033 - INFO - Document 28: 2889 chars, starts with: SAI SRINIVAS LAKKAKULA Page 2 w (669) 204-9148 w saisrinivas.lakka@gmail.com 
+4 Spearheaded expansion of AWS RDS's engine repertoire, introducing IBM DB2 engine, increasing client satisfaction by 20%....
+2025-04-06 18:40:41,033 - ERROR - Error initializing RAG engine: '_Settings' object has no attribute 'to_service_context'
+[BOOT] Streamlit app.py started
+[2025-04-06 18:42:37] 🚀 Streamlit app starting...
+[2025-04-06 18:42:37] 🔁 Initializing RAG brain...
+2025-04-06 18:42:37,251 - INFO - Initializing LLM...
+2025-04-06 18:42:37,252 - INFO - Initializing embedding model...
+2025-04-06 18:42:37,314 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-04-06 18:42:39,609 - INFO - 2 prompts are loaded, with the keys: ['query', 'text']
+2025-04-06 18:42:39,987 - ERROR - Error initializing RAG engine: ServiceContext is deprecated. Use llama_index.settings.Settings instead, or pass in modules to local functions/methods/interfaces.
+See the docs for updated usage/migration: 
+https://docs.llamaindex.ai/en/stable/module_guides/supporting_modules/service_context_migration/
+[BOOT] Streamlit app.py started
+[2025-04-06 18:44:40] 🚀 Streamlit app starting...
+[2025-04-06 18:44:40] 🔁 Initializing RAG brain...
+2025-04-06 18:44:40,335 - INFO - Initializing LLM...
+2025-04-06 18:44:40,336 - INFO - Initializing embedding model...
+2025-04-06 18:44:40,391 - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-04-06 18:44:43,111 - INFO - 2 prompts are loaded, with the keys: ['query', 'text']
+2025-04-06 18:44:43,351 - INFO - Loading documents...
+2025-04-06 18:44:44,319 - WARNING - Ignoring wrong pointing object 6 0 (offset 0)
+2025-04-06 18:44:44,319 - WARNING - Ignoring wrong pointing object 8 0 (offset 0)
+2025-04-06 18:44:44,319 - WARNING - Ignoring wrong pointing object 15 0 (offset 0)
+2025-04-06 18:44:44,320 - WARNING - Ignoring wrong pointing object 30 0 (offset 0)
+2025-04-06 18:44:44,320 - WARNING - Ignoring wrong pointing object 48 0 (offset 0)
+2025-04-06 18:44:44,320 - WARNING - Ignoring wrong pointing object 51 0 (offset 0)
+2025-04-06 18:44:44,781 - WARNING - Ignoring wrong pointing object 6 0 (offset 0)
+2025-04-06 18:44:44,781 - WARNING - Ignoring wrong pointing object 8 0 (offset 0)
+2025-04-06 18:44:44,781 - WARNING - Ignoring wrong pointing object 10 0 (offset 0)
+2025-04-06 18:44:44,781 - WARNING - Ignoring wrong pointing object 12 0 (offset 0)
+2025-04-06 18:44:44,781 - WARNING - Ignoring wrong pointing object 17 0 (offset 0)
+2025-04-06 18:44:44,781 - WARNING - Ignoring wrong pointing object 19 0 (offset 0)
+2025-04-06 18:44:44,781 - WARNING - Ignoring wrong pointing object 21 0 (offset 0)
+2025-04-06 18:44:44,781 - WARNING - Ignoring wrong pointing object 23 0 (offset 0)
+2025-04-06 18:44:44,781 - WARNING - Ignoring wrong pointing object 25 0 (offset 0)
+2025-04-06 18:44:44,781 - WARNING - Ignoring wrong pointing object 27 0 (offset 0)
+2025-04-06 18:44:44,781 - WARNING - Ignoring wrong pointing object 29 0 (offset 0)
+2025-04-06 18:44:44,782 - WARNING - Ignoring wrong pointing object 31 0 (offset 0)
+2025-04-06 18:44:44,782 - WARNING - Ignoring wrong pointing object 33 0 (offset 0)
+2025-04-06 18:44:44,782 - WARNING - Ignoring wrong pointing object 39 0 (offset 0)
+2025-04-06 18:44:44,782 - WARNING - Ignoring wrong pointing object 41 0 (offset 0)
+2025-04-06 18:44:44,782 - WARNING - Ignoring wrong pointing object 43 0 (offset 0)
+2025-04-06 18:44:44,887 - WARNING - Ignoring wrong pointing object 6 0 (offset 0)
+2025-04-06 18:44:44,887 - WARNING - Ignoring wrong pointing object 8 0 (offset 0)
+2025-04-06 18:44:44,888 - WARNING - Ignoring wrong pointing object 10 0 (offset 0)
+2025-04-06 18:44:44,888 - WARNING - Ignoring wrong pointing object 12 0 (offset 0)
+2025-04-06 18:44:44,888 - WARNING - Ignoring wrong pointing object 17 0 (offset 0)
+2025-04-06 18:44:44,888 - WARNING - Ignoring wrong pointing object 19 0 (offset 0)
+2025-04-06 18:44:44,888 - WARNING - Ignoring wrong pointing object 21 0 (offset 0)
+2025-04-06 18:44:44,888 - WARNING - Ignoring wrong pointing object 23 0 (offset 0)
+2025-04-06 18:44:44,888 - WARNING - Ignoring wrong pointing object 25 0 (offset 0)
+2025-04-06 18:44:44,888 - WARNING - Ignoring wrong pointing object 27 0 (offset 0)
+2025-04-06 18:44:44,888 - WARNING - Ignoring wrong pointing object 29 0 (offset 0)
+2025-04-06 18:44:44,888 - WARNING - Ignoring wrong pointing object 31 0 (offset 0)
+2025-04-06 18:44:44,888 - WARNING - Ignoring wrong pointing object 33 0 (offset 0)
+2025-04-06 18:44:44,888 - WARNING - Ignoring wrong pointing object 39 0 (offset 0)
+2025-04-06 18:44:44,889 - WARNING - Ignoring wrong pointing object 41 0 (offset 0)
+2025-04-06 18:44:44,889 - WARNING - Ignoring wrong pointing object 43 0 (offset 0)
+2025-04-06 18:44:44,995 - WARNING - Ignoring wrong pointing object 6 0 (offset 0)
+2025-04-06 18:44:44,995 - WARNING - Ignoring wrong pointing object 8 0 (offset 0)
+2025-04-06 18:44:44,995 - WARNING - Ignoring wrong pointing object 10 0 (offset 0)
+2025-04-06 18:44:44,995 - WARNING - Ignoring wrong pointing object 12 0 (offset 0)
+2025-04-06 18:44:44,995 - WARNING - Ignoring wrong pointing object 17 0 (offset 0)
+2025-04-06 18:44:44,995 - WARNING - Ignoring wrong pointing object 19 0 (offset 0)
+2025-04-06 18:44:44,995 - WARNING - Ignoring wrong pointing object 21 0 (offset 0)
+2025-04-06 18:44:44,995 - WARNING - Ignoring wrong pointing object 23 0 (offset 0)
+2025-04-06 18:44:44,995 - WARNING - Ignoring wrong pointing object 25 0 (offset 0)
+2025-04-06 18:44:44,996 - WARNING - Ignoring wrong pointing object 27 0 (offset 0)
+2025-04-06 18:44:44,996 - WARNING - Ignoring wrong pointing object 29 0 (offset 0)
+2025-04-06 18:44:44,996 - WARNING - Ignoring wrong pointing object 31 0 (offset 0)
+2025-04-06 18:44:44,996 - WARNING - Ignoring wrong pointing object 33 0 (offset 0)
+2025-04-06 18:44:44,996 - WARNING - Ignoring wrong pointing object 39 0 (offset 0)
+2025-04-06 18:44:44,996 - WARNING - Ignoring wrong pointing object 41 0 (offset 0)
+2025-04-06 18:44:44,996 - WARNING - Ignoring wrong pointing object 43 0 (offset 0)
+2025-04-06 18:44:45,173 - INFO - Loaded 28 documents
+2025-04-06 18:44:45,174 - INFO - Document 1: 2740 chars, starts with: 1.  RAG  Details,  Goals,  and  Expectations  
+Goals:  
+●  Centralized  Knowledge  Base:  
+The
+ 
+goal
+ 
+is
+ 
+to
+ 
+create
+ 
+a
+ 
+detailed
+ 
+and
+ 
+continually
+ 
+evolving
+ 
+repository
+ 
+of
+ 
+all
+ 
+your
+ 
+...
+2025-04-06 18:44:45,174 - INFO - Document 2: 2690 chars, starts with: ■  Role:  Worked  as  part  of  a  specialized  team  within  AWS  tasked  with  
+expanding
+ 
+the
+ 
+database
+ 
+offerings
+ 
+in
+ 
+RDS
+ 
+(Relational
+ 
+Database
+ 
+Service).
+ 
+My
+ 
+focus
+ 
+was
+ 
+on
+ 
+integ...
+2025-04-06 18:44:45,174 - INFO - Document 3: 2794 chars, starts with: ●  Team:  Display  Paid  Social  (DPS)  ○  Joined  the  Marketing  Technology  team  within  Walmart  Global  Tech  as  a  
+Software
+ 
+Engineer
+ 
+contractor.
+ ○  The  team  is  responsible  for  autom...
+2025-04-06 18:44:45,174 - INFO - Document 4: 2840 chars, starts with: ○  API  Development:  Developed  Java-based  APIs  that  enhanced  error  reporting  
+for
+ 
+WebEx
+ 
+services.
+ 
+The
+ 
+APIs
+ 
+improved
+ 
+how
+ 
+logs
+ 
+were
+ 
+retrieved,
+ 
+enabling
+ 
+more
+ 
+efficient
+ 
+p...
+2025-04-06 18:44:45,174 - INFO - Document 5: 2230 chars, starts with: 2.  Work  Log,  Journal  of  Sai  Srinivas  from  the  Document  Uploaded  
+(continued)
+  
+Key  Projects:  
+1.  MySmart  Cal  (Cloud-Based  Shared  Calendar  Platform)  
+●  Overview:  Designed  a  clo...
+2025-04-06 18:44:45,174 - INFO - Document 6: 2226 chars, starts with: ○  Outcome:  The  project  was  a  successful  proof  of  concept,  demonstrating  
+scalable
+ 
+microservice-based
+ 
+development
+ 
+for
+ 
+a
+ 
+large-scale
+ 
+food
+ 
+delivery
+ 
+platform.
+ 
+ 
+3.  Airplane  ...
+2025-04-06 18:44:45,174 - INFO - Document 7: 2287 chars, starts with: ■  Handles  search  engine  campaigns,  primarily  for  Google.  2.  AFFL  Coop  (Affiliates  Marketing):  ■  Manages  affiliate  marketing  campaigns  for  Walmart  products  through  
+external
+ 
+aff...
+2025-04-06 18:44:45,174 - INFO - Document 8: 2584 chars, starts with: ○  Backend:  Java  Spring  Boot.  ○  Communication:  RESTful  services  with  GraphQL  payloads  for  queries  and  
+mutations.
+ ○  Database:  MySQL  is  used  to  store  campaign  data  and  operatio...
+2025-04-06 18:44:45,174 - INFO - Document 9: 2144 chars, starts with: ○  CREATE Operations:  A  unique  coop_id is  generated,  and  shell  data  (such  as  
+campaign
+ 
+name,
+ 
+start/end
+ 
+dates)
+ 
+is
+ 
+inserted
+ 
+into
+ 
+the
+ coops table.  The  rest  of  the  
+campaign
+...
+2025-04-06 18:44:45,174 - INFO - Document 10: 703 chars, starts with: ●  Detailed  interactions  with  the  Meta  for  Business  API  for  various  campaign  operations  
+(e.g.,
+ CREATE,  UPDATE,  etc.).  ●  Specific  challenges  and  optimizations  needed  to  ensure  ...
+2025-04-06 18:44:45,174 - INFO - Document 11: 1942 chars, starts with: Introduction  Full Name Sai Srinivas Lakkakula Email saisrinivas.lakka@gmail.com Phone - LinkedIn https://www.linkedin.com/in/saisrinivasl/ GitHub https://github.com/saisrinivaslakkakula Portfolio Web...
+2025-04-06 18:44:45,174 - INFO - Document 12: 2738 chars, starts with: note that requests, whether in response to failures or customer needs, can only be initiated from the Control Plane. To sum up, envision the Control Plane as the commanding officer of the RDS Instance...
+2025-04-06 18:44:45,174 - INFO - Document 13: 2582 chars, starts with: end-to-end service to facilitate this. The service operates through a recurring job within the host manager. This job is responsible for uploading logs to the AWS CloudWatch service.  The introduction...
+2025-04-06 18:44:45,174 - INFO - Document 14: 2545 chars, starts with: Notes:   During my time as a Software Engineer Intern at Cisco's Webex Collaboration Business Unit, I had the opportunity to contribute to the Webex suite, a product designed for team collaboration an...
+2025-04-06 18:44:45,174 - INFO - Document 15: 2884 chars, starts with: This accomplishment holds a special place for me. We actively contributed to the development of an internal mobile application named "Namaste Capgemini." This initiative began during the early days of...
+2025-04-06 18:44:45,174 - INFO - Document 16: 2984 chars, starts with: automation solutions for both internal teams and external clients. One particular challenge I undertook was to create a check-style tool for mainframe COBOL applications, a task typically hampered by ...
+2025-04-06 18:44:45,175 - INFO - Document 17: 2815 chars, starts with: skills. MY360 addresses this problem by enabling HR personnel to identify resources based on skill shortages rather than predefined skill families.  For example, if an employee has a secondary skill a...
+2025-04-06 18:44:45,175 - INFO - Document 18: 3027 chars, starts with: a platform that streamlines the organization and management of these events, making them more accessible and engaging for participants.  Furthermore, I worked on crafting customized websites tailored ...
+2025-04-06 18:44:45,175 - INFO - Document 19: 2767 chars, starts with: learning, my penchant for innovation, and my unwavering commitment to mastering new technologies.  As I reflect on those early days, I'm reminded that even the smallest steps can lead to monumental ac...
+2025-04-06 18:44:45,175 - INFO - Document 20: 3008 chars, starts with: delivery applications called Uber Eats. The end goal of the project is to design the OMS system with 75% of estimated replica functionality of original application. System Design: Persona: In the OMS ...
+2025-04-06 18:44:45,175 - INFO - Document 21: 3327 chars, starts with: • User and restaurant address is simplified by adding main field as address and the document is subdivided into street, city, state etc.  Airplane Crash Analysis using the methods of Data Mining  You ...
+2025-04-06 18:44:45,175 - INFO - Document 22: 642 chars, starts with: The objective of this project is to identify insincere text within the Quora platform, encompassing both question text, user responses, and comments. Manual inspection of content can be a laborious ta...
+2025-04-06 18:44:45,175 - INFO - Document 23: 2883 chars, starts with: …Continued 
+SAI SRINIVAS LAKKAKULA, MS, CMPE 
+ (669) 204-9148  saisrinivas.lakka@gmail.com  www.linkedin.com/in/saisrinivasl    GUIDING FRONT-END AND BACK-END SOFTWARE DEVELOPMENT SOLUTIONS  Solution-...
+2025-04-06 18:44:45,175 - INFO - Document 24: 2948 chars, starts with: SAI SRINIVAS LAKKAKULA Page 2 w (669) 204-9148 w saisrinivas.lakka@gmail.com 
+4 Spearheaded expansion of AWS RDS's engine repertoire, introducing IBM DB2 engine, increasing client satisfaction by 20%....
+2025-04-06 18:44:45,175 - INFO - Document 25: 2968 chars, starts with: …Continued 
+SAI SRINIVAS LAKKAKULA, MS, CMPE 
+ (669) 204-9148  saisrinivas.lakka@gmail.com  www.linkedin.com/in/saisrinivasl    GUIDING FRONT-END AND BACK-END SOFTWARE DEVELOPMENT SOLUTIONS  Solution-...
+2025-04-06 18:44:45,175 - INFO - Document 26: 2948 chars, starts with: SAI SRINIVAS LAKKAKULA Page 2 w (669) 204-9148 w saisrinivas.lakka@gmail.com 
+4 Spearheaded expansion of AWS RDS's engine repertoire, introducing IBM DB2 engine, increasing client satisfaction by 20%....
+2025-04-06 18:44:45,175 - INFO - Document 27: 2891 chars, starts with: …Continued 
+SAI SRINIVAS LAKKAKULA, MS, CMPE 
+ (669) 204-9148  saisrinivas.lakka@gmail.com  www.linkedin.com/in/saisrinivasl    GUIDING FRONT-END AND BACK-END SOFTWARE DEVELOPMENT SOLUTIONS  Solution-...
+2025-04-06 18:44:45,175 - INFO - Document 28: 2889 chars, starts with: SAI SRINIVAS LAKKAKULA Page 2 w (669) 204-9148 w saisrinivas.lakka@gmail.com 
+4 Spearheaded expansion of AWS RDS's engine repertoire, introducing IBM DB2 engine, increasing client satisfaction by 20%....
+2025-04-06 18:44:47,931 - INFO - RAG engine initialized successfully
+[BOOT] Streamlit app.py started
+[2025-04-06 18:45:00] 🚀 Streamlit app starting...
+[2025-04-06 18:45:00] 🔍 Custom Question: hi
+[2025-04-06 18:45:00] 💬 Query received: hi
+[2025-04-06 18:45:00] 👤 Persona: 🧑 Speak as Sai (First-person)
+[2025-04-06 18:45:00] 🚀 Executing query...
+[2025-04-06 18:45:01] 📚 Retrieved 3 nodes
+[2025-04-06 18:45:01] Node 1 score: 0.210929961367667
+[2025-04-06 18:45:01] Node 1 content: This experience allowed me to contribute to the development of these young talents and witness their success firsthand.  Software Development Engineer - II  Oct 2017 - Dec 2020 Capgemini Technology Se...
+[2025-04-06 18:45:01] Node 2 score: 0.1713273644616243
+[2025-04-06 18:45:01] Node 2 content: • Pioneered ANTLR and Java based automatic code analysis and review tool for legacy target programing languages. Peddled up technical code review process by reducing 78% of manual effort.  Notes:  Her...
+[2025-04-06 18:45:01] Node 3 score: 0.1699476255595912
+[2025-04-06 18:45:01] Node 3 content: Technologies used: React.js, JSX, HTML, CSS, Redux, Java, SpringBoot, SpringData, MongoDB, Apache Kafka, AWS EC2, git, SDLC, Agile.   UberEats Website Clone  Introduction: The purpose of this project ...
+[2025-04-06 18:45:01] ✅ Response generated: Empty Response
+[BOOT] Streamlit app.py started
+[2025-04-06 18:45:05] 🚀 Streamlit app starting...
+[2025-04-06 18:45:05] 🔍 Custom Question: \
+[2025-04-06 18:45:05] 💬 Query received: \
+[2025-04-06 18:45:05] 👤 Persona: 🧑 Speak as Sai (First-person)
+[2025-04-06 18:45:05] 🚀 Executing query...
+[2025-04-06 18:45:05] 📚 Retrieved 3 nodes
+[2025-04-06 18:45:05] Node 1 score: 0.14873787882609926
+[2025-04-06 18:45:05] Node 1 content: My drive to conquer new technological frontiers became an intrinsic part of who I am. With each application, I delved into unfamiliar technologies from scratch, fearlessly navigating uncharted territo...
+[2025-04-06 18:45:05] Node 2 score: 0.12566242827274682
+[2025-04-06 18:45:05] Node 2 content: This information empowers customers to cross-check and decide whether decommissioning is necessary. This tool effectively assists customers in identifying and addressing redundant code within their ma...
+[2025-04-06 18:45:05] Node 3 score: 0.12188902427053938
+[2025-04-06 18:45:05] Node 3 content: …Continued 
+SAI SRINIVAS LAKKAKULA, MS, CMPE 
+ (669) 204-9148  saisrinivas.lakka@gmail.com  www.linkedin.com/in/saisrinivasl    GUIDING FRONT-END AND BACK-END SOFTWARE DEVELOPMENT SOLUTIONS  Solution-...
+[2025-04-06 18:45:05] ✅ Response generated: Empty Response
+[BOOT] Streamlit app.py started
+[2025-04-06 18:45:11] 🚀 Streamlit app starting...
+[BOOT] Streamlit app.py started
+[2025-04-06 18:45:14] 🚀 Streamlit app starting...
+[2025-04-06 18:45:14] 📌 Button clicked: ☁️ My Work at AWS
+[2025-04-06 18:45:14] 💬 Query received: Tell me about your work on AWS RDS and DB2 migration.
+[2025-04-06 18:45:14] 👤 Persona: 🧑 Speak as Sai (First-person)
+[2025-04-06 18:45:14] 🚀 Executing query...
+[2025-04-06 18:45:14] 📚 Retrieved 3 nodes
+[2025-04-06 18:45:14] Node 1 score: 0.7578178957035878
+[2025-04-06 18:45:14] Node 1 content: ■  Role:  Worked  as  part  of  a  specialized  team  within  AWS  tasked  with  
+expanding
+ 
+the
+ 
+database
+ 
+offerings
+ 
+in
+ 
+RDS
+ 
+(Relational
+ 
+Database
+ 
+Service).
+ 
+My
+ 
+focus
+ 
+was
+ 
+on
+ 
+integ...
+[2025-04-06 18:45:14] Node 2 score: 0.7184404413792222
+[2025-04-06 18:45:14] Node 2 content: note that requests, whether in response to failures or customer needs, can only be initiated from the Control Plane. To sum up, envision the Control Plane as the commanding officer of the RDS Instance...
+[2025-04-06 18:45:14] Node 3 score: 0.6706741500336293
+[2025-04-06 18:45:14] Node 3 content: SAI SRINIVAS LAKKAKULA Page 2 w (669) 204-9148 w saisrinivas.lakka@gmail.com 
+4 Spearheaded expansion of AWS RDS's engine repertoire, introducing IBM DB2 engine, increasing client satisfaction by 20%....
+2025-04-06 18:45:15,179 - INFO - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 404 Not Found"
+[BOOT] Streamlit app.py started
+[2025-04-06 18:45:22] 🚀 Streamlit app starting...
+[2025-04-06 18:45:22] 📌 Button clicked: ☁️ My Work at AWS
+[2025-04-06 18:45:22] 💬 Query received: Tell me about your work on AWS RDS and DB2 migration.
+[2025-04-06 18:45:22] 👤 Persona: 🧑 Speak as Sai (First-person)
+[2025-04-06 18:45:22] 🚀 Executing query...
+[2025-04-06 18:45:22] 📚 Retrieved 3 nodes
+[2025-04-06 18:45:22] Node 1 score: 0.7578178957035878
+[2025-04-06 18:45:22] Node 1 content: ■  Role:  Worked  as  part  of  a  specialized  team  within  AWS  tasked  with  
+expanding
+ 
+the
+ 
+database
+ 
+offerings
+ 
+in
+ 
+RDS
+ 
+(Relational
+ 
+Database
+ 
+Service).
+ 
+My
+ 
+focus
+ 
+was
+ 
+on
+ 
+integ...
+[2025-04-06 18:45:22] Node 2 score: 0.7184404413792222
+[2025-04-06 18:45:22] Node 2 content: note that requests, whether in response to failures or customer needs, can only be initiated from the Control Plane. To sum up, envision the Control Plane as the commanding officer of the RDS Instance...
+[2025-04-06 18:45:22] Node 3 score: 0.6706741500336293
+[2025-04-06 18:45:22] Node 3 content: SAI SRINIVAS LAKKAKULA Page 2 w (669) 204-9148 w saisrinivas.lakka@gmail.com 
+4 Spearheaded expansion of AWS RDS's engine repertoire, introducing IBM DB2 engine, increasing client satisfaction by 20%....
+2025-04-06 18:45:22,566 - INFO - HTTP Request: POST http://localhost:11434/api/chat "HTTP/1.1 404 Not Found"
+[BOOT] Streamlit app.py started
+[2025-04-06 18:55:06] 🚀 Streamlit app starting...
+[2025-04-06 18:55:06] 🔁 Initializing RAG brain...
+2025-04-06 18:55:06,479 - INFO - Initializing LLM with mistral (quantized)...
+2025-04-06 18:55:06,480 - INFO - Testing LLM connection...
+2025-04-06 19:00:06,766 - ERROR - LLM test failed: timed out
+2025-04-06 19:00:06,934 - ERROR - Error initializing RAG engine: Failed to connect to LLM. Please ensure Ollama is running and mistral model is installed.

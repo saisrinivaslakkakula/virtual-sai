@@ -1,11 +1,14 @@
 # === CORE APP ===
-streamlit
-sentence-transformers
-pypdf
-docx2txt
+streamlit>=1.44.1
+sentence-transformers>=2.6.1
+pypdf>=5.4.0
+docx2txt>=0.9
 numpy==1.26.4
+torch>=2.1.0
+transformers==4.36.2
 
 # === LLAMA INDEX CORE + MODULES ===
-llama-index-core>=0.10.20
-llama-index-llms-ollama
-llama-index-embeddings-huggingface
+llama-index-core>=0.12.4,<0.13.0
+llama-index-llms-ollama>=0.5.4
+llama-index-embeddings-huggingface>=0.5.2
+llama-index-readers-file>=0.1.3
