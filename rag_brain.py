@@ -3,7 +3,7 @@ import os
 from llama_index.core.indices.vector_store import VectorStoreIndex
 from llama_index.core.indices.vector_store.retrievers import VectorIndexRetriever
 from llama_index.core.readers import SimpleDirectoryReader
-from llama_index.readers.file import PDFParser
+from llama_index.readers.file.base_parser import PDFParser
 from llama_index.core.query_engine import RetrieverQueryEngine
 from llama_index.core.prompts.prompts import QuestionAnswerPrompt
 from llama_index.llms.ollama import Ollama
