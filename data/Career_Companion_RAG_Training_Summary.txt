@@ -1,0 +1,62 @@
+
+RAG Details, Goals, and Expectations
+
+Goals:
+- Centralized Knowledge Base
+- Career Growth & Skill Development
+- Job Application Optimization
+- Personal Branding & Networking
+- Problem-Solving & Innovation
+
+Work Log, Journal of Sai Srinivas
+
+Amazon Web Services (Jan 2023 - Dec 2023)
+- DB2 integration with RDS
+- API for DB2 migration (on-prem → AWS)
+- Host Manager Service optimization
+- On-call responsibilities
+
+Walmart Global Tech (Jan 2024 - Present)
+- Meta Coop campaign automation integration
+- Java Spring Boot microservices using GraphQL and MySQL
+- Focus on sync-async flows for campaign creation
+
+Cisco Intern (Jun 2022 - Aug 2022)
+- Developed logging APIs
+- Worked with PostgreSQL, Java, Docker
+
+Capgemini (Oct 2017 - Dec 2020)
+- Namaste Capgemini COVID platform
+- Automated COBOL code review using ANTLR
+- MY360 HR tool using PHP, Java, AWS, Azure
+
+Key Projects:
+MySmart Cal
+- Cloud-based calendar platform
+- Tech: Java, Spring Boot, React, MongoDB, AWS
+
+UberEats Clone
+- Food delivery app with Kafka and microservices
+- Tech: Java Spring Boot, MongoDB, React, Docker, AWS
+
+Airplane Crash Analysis
+- ML project with Random Forest, Decision Trees
+- Tech: Python, Scikit-learn, Matplotlib, Seaborn
+
+Quora Insincere Classifier
+- Text classification model for moderation
+
+Marketing Technology @ Walmart
+- Org Structure: Head - Denis Burnov
+- DPS Coop Team for Meta Campaigns (Lead: Sameer)
+
+Martech-Services App Flow:
+- Tech: Java Spring Boot, GraphQL, MySQL
+- Sync-async flow using Avro serialization
+- Context Holder (AOP)
+- Operation Routing (CREATE, UPDATE, PAUSE, etc.)
+
+Scheduler Flow:
+- Picks operations based on Marketing Vehicle
+- Handles Meta campaign API calls
+- Retry mechanisms

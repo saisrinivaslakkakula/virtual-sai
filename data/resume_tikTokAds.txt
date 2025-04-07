@@ -1,0 +1,74 @@
+SAI SRINIVAS
+LAKKAKULA, MS, CMPE
+saisrinivas.lakka@gmail.com
+www.linkedin.com/in/saisrinivasl
+GUIDING FRONT-END AND BACK-END SOFTWARE DEVELOPMENT SOLUTIONS
+Solution-oriented Software Development Engineer with a proven track record of automating processes and optimizing
+system performance. Led the automation of Meta campaign creation, driving a 40% increase in efficiency and significantly
+boosting engagement and conversion rates. Skilled in reducing API latency by 40% through optimized data pipelines,
+ensuring rapid and reliable data access. Committed to leveraging cutting-edge technologies to deliver scalable, high-
+impact solutions that exceed business goals.
+KEY AREAS OF QUALIFICATION
+Software Architecture & Design Patterns w Cloud Services (AWS) w Responsive Web Design w Web Security & Encryption
+Test-Driven Development w Computer Architecture w Large Scale Enterprise Distributed Systems w Software Engineering
+Object Oriented Programming w Agile Methodologies w Data Processing, Structures, Systems w Technology Integration
+PROFESSIONAL EXPERIENCE
+Walmart Global Tech w Sunnyvale, CA w 2024
+SOFTWARE DEVELOPMENT ENGINEER
+Developed and automated the campaign creation process for within the Walmart seller center, projecting a 35-40%
+increase in campaign creation and a 2-4% rise in overall site traffic, significantly enhancing both seller engagement and
+conversion rates.
+4 Automated Meta campaign creation within Walmart's seller center, leading to a 35-40% rise in campaign creation
+and a 2-4% increase in site traffic, significantly boosting seller engagement and conversion rates.
+4 Developed a data pipeline to extract, transform, and load Meta campaign performance metrics into Google
+BigQuery tables, enabling seamless data integration and reporting.
+4 Optimized API performance by implementing an Airflow DAG and Spark connector to sync BigQuery data into
+MySQL, reducing latency by 40% and ensuring faster data retrieval for front-end clients.
+4 Architected scalable API solutions using Java Spring Boot, enabling advanced query capabilities and real-time
+access to campaign performance metrics for front-end clients.
+4 Developed and maintained scalable data pipelines (DMAS) that integrated catalog and product data with
+TikTok's advertising platform, enabling seamless data exchange for analytics and billing across multiple channels.
+Amazon Web Services w East Palo Alto, CA w 2023
+SOFTWARE DEVELOPMENT ENGINEER
+Pioneered development of APIs engineered to streamline database migration processes. Led creation and seamless
+integration of microservices, catering to diverse range of functions, such as safeguarding databases, facilitating recoveries,
+fortifying security through patching, orchestrating log management, and optimizing performance via meticulous
+monitoring metrics. Develop cutting-edge Java-based asynchronous stored procedures, empowering Java to mastermind
+complex file operations.
+SAI SRINIVAS LAKKAKULA Page 2 w (669) 204-9148 w saisrinivas.lakka@gmail.com
+4 Spearheaded expansion of AWS RDS's engine repertoire, introducing IBM DB2 engine, increasing client
+satisfaction by 20%.
+4 Elevated efficiency of the RDS DB2 Host Manager Service by orchestrating systematic transfer of local logs to AWS
+CloudWatch at regular intervals, yielding 80% reduction in disk space consumption.
+4 Saved 10 hours of manual labor per week by enabling swift transitions from on premise systems to RDS DB2 via
+S3 buckets within two weeks.
+4 Consistently achieved a 95% success rate in resolving customer issues, surpassing industry standards and
+enhancing product quality.
+Capgemini Technology Services w Chennai, Tamil Nadu w 2017 to 2020
+SOFTWARE DEVELOPMENT ENGINEER
+Received nomination for the Aegis Graham Bell Tech Innovation Award in 2020 for mastering creation PHP APIs for the
+next-gen 'Namaste Capgemini' mobile app. Developed MY360, a cloud-based Full-Stack web application that enhanced
+talent and resources management and achieved 50% boost in speed at organizational level.
+4 Revolutionized code review processes by crafting ANTLR and Java code checker tailored for venerable COBOL
+programming language, resultantly slashing manual code review time by 78%, freeing up valuable resources
+for more strategic endeavors.
+4 Spearheaded Legacy Code Analysis for diverse Banking and Insurance clients through proprietary CAP360 In-house
+application, which led to identifying and mitigating 85% of technical debt, yielding substantial MIPS
+optimization and cost reduction, ultimately enhancing overall operational efficiency.
+4 Drove 70% surge in efficiency across organization's logistics operations within two weeks by leading creation
+of Namaste Capgemini mobile app.
+EDUCATION
+Master of Science Computer Engineering, San Jose State University (2022)
+Bachelor of Technology Electronics Engineering, Bapatla Engineering College (2017)
+TECHNICAL SKILLS
+Java, Spring Framework, Spring Boot, React.js, Node.js, Express, Redux, MongoDB, MySQL, Docker, Apache Kafka,
+Python, Spark, Apache Airflow, Google BigQuery AWS RDS, AWS CloudWatch, CI/CD, Distributed Computing,
+Jenkins, Maven/Gradle, Data Structures, Algorithms, OOP, Python, JUnit, Easy Mock/ Mockito, Linux, Shell Scripting,
+Micro Services, REST API, graphQL, Machine Learning, NumPy, Pandas, SciKit Learn
+ACADEMIC PROJECTS
+4 Uber Eats Website Clone: Designed and implemented online restaurant order management system (OMS) based
+on Uber Eats, achieving 75% replica functionality, showcasing advanced system design and development skills.
+4 Created My Smart Cal, a cloud-based public calendar in 12 months: serving as system architect, scheduling and
+appointment management for freelancers and clients and empowered users to specify services, enhancing
+productivity and time management while bridging gap between service providers and employers and streamlining
+work processes.
