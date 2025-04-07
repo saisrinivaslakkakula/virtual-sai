@@ -3,6 +3,7 @@ import os
 from llama_index.core.indices.vector_store import VectorStoreIndex
 from llama_index.core.indices.vector_store.retrievers import VectorIndexRetriever
 from llama_index.core.readers import SimpleDirectoryReader
+from llama_index.readers.file import PDFParser
 from llama_index.core.query_engine import RetrieverQueryEngine
 from llama_index.core.prompts.prompts import QuestionAnswerPrompt
 from llama_index.llms.ollama import Ollama
@@ -20,33 +21,35 @@ def log(msg):
 def load_rag_engine():
     start = time.time()
     log("🧠 Loading documents...")
-    
-    if not os.path.exists("data") or not os.listdir("data"):
-        log("⚠️ 'data' directory missing or empty!")
-        return None, None, None
 
-    documents = SimpleDirectoryReader("data").load_data()
-    log(f"📄 Loaded {len(documents)} document(s).")
+    # 🔧 Improved PDF handling
+    reader = SimpleDirectoryReader(
+        input_dir="data",
+        file_extractor={".pdf": PDFParser()}
+    )
+    documents = reader.load_data()
+    log(f"📄 Loaded {len(documents)} documents.")
 
+    # 🔍 Peek into documents
     for i, doc in enumerate(documents):
-        snippet = doc.text[:200].replace("\n", " ")
+        snippet = doc.text[:500].replace("\n", " ").replace("\r", " ")
         log(f"📃 Doc {i+1} preview: {snippet}...")
 
-    log("🔤 Initializing embedding model (BAAI/bge-base-en-v1.5)...")
-    embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-base-en-v1.5")
-    log("✅ Embedding model ready.")
+    log("🔤 Loading embedding model...")
+    embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en")
+    log("✅ Embedding model loaded.")
 
-    log("🤖 Starting LLM (mistral via Ollama)...")
+    log("🤖 Loading Mistral via Ollama...")
     llm = Ollama(model="mistral", temperature=0.2, request_timeout=60.0)
-    log("✅ LLM ready.")
+    log("✅ LLM initialized.")
 
-    log("🗂️ Building Vector Index...")
+    log("📚 Creating index...")
     index = VectorStoreIndex.from_documents(
         documents,
         llm=llm,
         embed_model=embed_model
     )
-    log(f"✅ Brain initialized in {round(time.time() - start, 2)} sec.")
+    log(f"✅ Brain ready in {round(time.time() - start, 2)} sec.")
     return index, llm, embed_model
 
 def get_answer(engine, query, persona_mode, llm, embed_model):
