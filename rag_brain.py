@@ -29,7 +29,8 @@ def load_rag_engine():
     log(f"📄 Loaded {len(documents)} document(s).")
 
     for i, doc in enumerate(documents):
-        log(f"📃 Doc {i+1} preview: {doc.text[:200].replace('\n', ' ')}...")
+        snippet = doc.text[:200].replace("\n", " ")
+        log(f"📃 Doc {i+1} preview: {snippet}...")
 
     log("🔤 Initializing embedding model (BAAI/bge-base-en-v1.5)...")
     embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-base-en-v1.5")
