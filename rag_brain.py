@@ -1,5 +1,6 @@
 import time
 import os
+import nltk
 from llama_index.core.indices.vector_store import VectorStoreIndex
 from llama_index.core.indices.vector_store.retrievers import VectorIndexRetriever
 from llama_index.core.readers import SimpleDirectoryReader
@@ -9,7 +10,17 @@ from llama_index.core.prompts.prompts import QuestionAnswerPrompt
 from llama_index.llms.ollama import Ollama
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 
-# 🪵 Log file path
+# Download required NLTK data
+try:
+    nltk.data.find('tokenizers/punkt')
+except LookupError:
+    nltk.download('punkt')
+try:
+    nltk.data.find('corpora/stopwords')
+except LookupError:
+    nltk.download('stopwords')
+
+# �� Log file path
 LOG_FILE = "debug.log"
 
 def log(msg):
@@ -25,7 +36,7 @@ def load_rag_engine():
     # 🔧 Improved PDF handling
     reader = SimpleDirectoryReader(
         input_dir="data",
-        file_extractor={".pdf": PDFReader()}
+        recursive=True
     )
     documents = reader.load_data()
     log(f"📄 Loaded {len(documents)} documents.")
