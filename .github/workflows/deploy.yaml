@@ -66,8 +66,8 @@ jobs:
                   nohup cloudflared tunnel --url http://localhost:7860 > cloudflare.log 2>&1 &
 
                   echo "⏳ Waiting for Cloudflare URL"
-                  for i in \{1..10\}; do
-                      URL=\$(grep -o 'https://.*\.trycloudflare\.com' cloudflare.log | tail -n1)
+                  for i in {1..10}; do
+                      URL=\$(grep trycloudflare.com cloudflare.log | tail -n1 | awk '{print \$NF}')
                       if [ ! -z "\$URL" ]; then
                           echo "✅ Public URL: \$URL"
                           break
@@ -80,4 +80,4 @@ jobs:
                   fi
 
                   echo "✅ Deployment Complete!"
-                  EOF
+                  'EOF'
