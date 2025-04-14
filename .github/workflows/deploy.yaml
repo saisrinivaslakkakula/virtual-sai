@@ -24,6 +24,8 @@ jobs:
                   ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} << 'EOF'
 
                   set -e
+                  echo "🔧 Ensuring essential packages are installed..."
+                  apt update && apt install -y git curl unzip
 
                   echo "📁 Navigating to volume mount at /workspace"
                   cd /workspace
