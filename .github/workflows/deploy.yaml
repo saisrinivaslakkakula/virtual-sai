@@ -1,4 +1,4 @@
-name: 🚀 Full Deploy to RunPod
+name: 🚀 Deploy to RunPod
 
 on:
     push:
@@ -7,58 +7,61 @@ on:
 
 jobs:
     deploy:
-        name: Deploy Virtual Sai on RunPod
         runs-on: ubuntu-latest
 
         steps:
-            - name: 📥 Checkout repository
+            - name: 🧾 Checkout Code
               uses: actions/checkout@v3
-            - name: 🔐 Setup SSH access
+
+            - name: 🐍 Set Up Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: "3.10"
+
+            - name: 🔐 Debug SSH Setup
               run: |
+                  echo "🔍 Creating ~/.ssh directory..."
                   mkdir -p ~/.ssh
+
+                  echo "🔐 Writing private SSH key to ~/.ssh/id_ed25519..."
                   echo "${{ secrets.RUNPOD_SSH_KEY }}" > ~/.ssh/id_ed25519
                   chmod 600 ~/.ssh/id_ed25519
+
+                  echo "🔍 Verifying key file exists and has correct permissions:"
+                  ls -l ~/.ssh
+                  head -n 5 ~/.ssh/id_ed25519 || echo "(failed to read key)"
+
+                  echo "🌐 Running ssh-keyscan for ${{ secrets.RUNPOD_HOST }} on port ${{ secrets.RUNPOD_PORT }}..."
                   ssh-keyscan -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_HOST }} >> ~/.ssh/known_hosts
 
-            - name: 🛠️ SSH and Deploy on RunPod
+                  echo "📂 Known hosts file content:"
+                  cat ~/.ssh/known_hosts
+
+            - name: 🧪 Test SSH Connection
               run: |
-                  ssh -tt -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} << 'EOF'
-                    set -e
+                  echo "🚀 Attempting SSH connection..."
+                  ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} -p ${{ secrets.RUNPOD_PORT }} "echo 🟢 Connected to RunPod!"
 
-                    echo "🧼 Cleaning up previous deployment..."
-                    rm -rf /workspace/virtual-sai
-                    git clone https://github.com/saisrinivaslakkakula/virtual-sai.git /workspace/virtual-sai
-                    cd /workspace/virtual-sai
+            - name: 🚀 Deploy to RunPod
+              run: |
+                  echo "📦 Uploading & installing project on RunPod..."
 
-                    echo "🧠 Killing existing processes..."
-                    pkill -f "streamlit" || true
-                    pkill -f "cloudflared" || true
+                  ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} -p ${{ secrets.RUNPOD_PORT }} << 'EOF'
+                    echo "🧹 Cleaning old app directory..."
+                    rm -rf ~/virtual-sai
+                    mkdir -p ~/virtual-sai
 
-                    echo "🐍 Recreating Python environment..."
-                    rm -rf venv
-                    python3 -m venv venv
-                    source venv/bin/activate
+                    echo "📥 Cloning latest code..."
+                    git clone https://github.com/saisrinivaslakkakula/virtual-sai.git ~/virtual-sai
+                    cd ~/virtual-sai
 
-                    echo "📦 Installing dependencies..."
+                    echo "🐍 Installing Python dependencies..."
                     pip install --upgrade pip
                     pip install -r requirements.txt
 
-                    echo "🚀 Starting Streamlit..."
-                    nohup venv/bin/streamlit run app.py \
-                      --server.port=7860 \
-                      --server.address=0.0.0.0 \
-                      --server.headless=true \
-                      --server.enableCORS=false \
-                      --server.enableXsrfProtection=false \
-                      > streamlit.log 2>&1 &
-
-                    echo "🌐 Starting Cloudflare tunnel..."
-                    nohup cloudflared tunnel --url http://localhost:7860 > cloudflare.log 2>&1 &
-
-                    sleep 10  # Give tunnel a few seconds to establish
-
-                    echo "🔗 Cloudflare URL (check below):"
-                    grep -o "https://.*\.trycloudflare\.com" cloudflare.log | head -n 1 || echo "⚠️ Tunnel URL not found."
-
-                    echo "✅ Deployment complete."
+                    echo "🧠 Starting Virtual Sai..."
+                    pkill -f streamlit || true
+                    nohup streamlit run app.py --server.port=7860 --server.address=0.0.0.0 > streamlit.log 2>&1 &
+                    echo "✅ Deployment complete. Logs:"
+                    tail -n 20 streamlit.log
                   EOF
