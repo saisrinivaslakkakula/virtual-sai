@@ -19,31 +19,49 @@ jobs:
                   chmod 600 ~/.ssh/id_ed25519
                   ssh-keyscan -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_HOST }} >> ~/.ssh/known_hosts
 
-            - name: 🚀 Deploy to RunPod
+            - name: 🚀 Deploy and Launch on RunPod
               run: |
-                  ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} <<EOF
-                    set -e
-                    echo "🧹 Cleaning old venv (if exists)"
-                    rm -rf ~/virtual-sai/venv || true
+                  echo "📁 Connecting to RunPod and setting up deployment"
+                  ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} << 'EOF'
 
-                    echo "📥 Pulling latest code"
-                    cd ~/virtual-sai || git clone https://github.com/saisrinivaslakkakula/virtual-sai.git ~/virtual-sai && cd ~/virtual-sai
-                    git pull origin main
+                  set -e  # Fail on other unhandled errors
 
-                    echo "🐍 Creating virtualenv"
-                    python3 -m venv venv
-                    source venv/bin/activate
+                  REPO_DIR=~/virtual-sai
 
-                    echo "📦 Installing dependencies"
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
+                  echo "📂 Ensuring project directory exists..."
+                  mkdir -p $REPO_DIR
+                  cd $REPO_DIR || exit 1
 
-                    echo "🧠 Restarting services"
-                    pkill streamlit || true
-                    pkill cloudflared || true
+                  echo "🧹 Cleaning up old virtual environment if exists..."
+                  if [ -d "venv" ]; then
+                      rm -rf venv
+                      echo "✅ Removed old venv"
+                  else
+                      echo "⚠️ No existing venv to remove"
+                  fi
 
-                    nohup streamlit run app.py --server.port=7860 --server.address=0.0.0.0 > streamlit.log 2>&1 &
-                    nohup cloudflared tunnel --url http://localhost:7860 > cloudflare.log 2>&1 &
+                  echo "📥 Pulling latest code (or cloning if missing)..."
+                  if [ ! -d ".git" ]; then
+                      echo "🔁 Git repo not found, cloning afresh"
+                      git clone https://github.com/saisrinivaslakkakula/virtual-sai.git .
+                  else
+                      git pull origin main
+                  fi
 
-                    echo "✅ Deployment done!"
+                  echo "🐍 Creating new Python virtual environment..."
+                  python3 -m venv venv && source venv/bin/activate
+
+                  echo "📦 Installing dependencies..."
+                  pip install --upgrade pip
+                  pip install -r requirements.txt
+
+                  echo "🧠 Restarting backend services..."
+                  pkill streamlit || true
+                  pkill cloudflared || true
+
+                  nohup streamlit run app.py --server.port=7860 --server.address=0.0.0.0 > streamlit.log 2>&1 &
+                  nohup cloudflared tunnel --url http://localhost:7860 > cloudflare.log 2>&1 &
+
+                  echo "✅ Deployment complete!"
+
                   EOF
