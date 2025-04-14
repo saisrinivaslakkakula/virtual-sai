@@ -22,7 +22,7 @@ jobs:
             - name: 🚀 Deploy and Launch on RunPod
               run: |
                   echo "📡 Connecting to RunPod via SSH..."
-                  ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} << 'EOF'
+                  ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} << EOF
 
                   set -e  # Exit on error
                   REPO_DIR=~/workspace/virtual-sai
@@ -59,7 +59,7 @@ jobs:
 
                   echo "⏳ Waiting for Cloudflare tunnel to initialize..."
                   for i in {1..10}; do
-                      URL=\$(grep "trycloudflare.com" cloudflare.log | tail -n1 | cut -d' ' -f2)
+                      URL=\$(grep -o 'https://.*\.trycloudflare.com' cloudflare.log | tail -n1)
                       if [ ! -z "\$URL" ]; then
                           echo "🌐 Public URL: \$URL"
                           break
