@@ -49,3 +49,34 @@ jobs:
               run: |
                   echo "🚀 Attempting SSH connection to RunPod with -vvv..."
                   ssh -vvv -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} -p ${{ secrets.RUNPOD_PORT }} "echo 🟢 Connected to RunPod!"
+            
+            - name: 🚀 Deploy: Setup and Launch
+              run: |
+                echo "📁 Navigating to project directory"
+                ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} << 'EOF'
+                
+                set -e  # Exit on error
+
+                echo "🧹 Cleaning up old environment"
+                rm -rf ~/virtual-sai/venv || true
+                
+                echo "📥 Pulling latest code"
+                cd ~/virtual-sai
+                git pull origin main
+
+                echo "🐍 Setting up virtual environment"
+                python3 -m venv venv
+                source venv/bin/activate
+
+                echo "📦 Installing dependencies"
+                pip install --upgrade pip
+                pip install -r requirements.txt
+
+                echo "🧠 Starting Streamlit + Ollama + Cloudflare (background)"
+                pkill streamlit || true
+                pkill cloudflared || true
+                nohup streamlit run app.py --server.port=7860 --server.address=0.0.0.0 > streamlit.log 2>&1 &
+                nohup cloudflared tunnel --url http://localhost:7860 > cloudflare.log 2>&1 &
+
+                echo "✅ Deployment completed!"
+                EOF
