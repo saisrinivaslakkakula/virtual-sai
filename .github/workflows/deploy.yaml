@@ -32,52 +32,41 @@ jobs:
                   echo "📁 Ensuring repo directory exists"
                   mkdir -p \$REPO_DIR && cd \$REPO_DIR
 
-                  echo "🧹 Cleaning previous runs and freeing up space"
-                  rm -rf venv ~/.cache ~/.npm ~/.cargo ~/.conda /tmp/* || true
-                  docker system prune -a -f || true
-                  ollama rm mistral || true
-                  du -sh ~/*
+                  echo "🧹 Cleaning up old files and venv..."
+                  rm -rf venv /tmp/* ~/.cache || true
 
-                  echo "📥 Pulling latest code"
+                  echo "📥 Cloning or pulling latest code"
                   if [ ! -d ".git" ]; then
                     git clone https://github.com/saisrinivaslakkakula/virtual-sai.git .
                   else
                     git pull origin main
                   fi
 
-                  echo "🐍 Creating new Python virtual environment..."
+                  echo "🐍 Creating virtual environment"
                   python3 -m venv venv && source venv/bin/activate
 
-                  echo "📦 Installing dependencies"
+                  echo "📦 Installing Python dependencies"
                   pip install --upgrade pip
                   pip install -r requirements.txt
 
-                  echo "🤖 Pulling Mistral model (if needed)..."
-                  ollama pull mistral || echo "Mistral already present"
+                  echo "🤖 Pulling Mistral (if needed)..."
+                  ollama pull mistral || echo "Mistral already exists."
 
-                  echo "🛑 Killing any previous services"
+                  echo "🛑 Killing previous services"
                   pkill streamlit || true
                   pkill cloudflared || true
 
-                  echo "🚀 Launching Streamlit"
+                  echo "🚀 Launching Streamlit..."
                   nohup venv/bin/streamlit run app.py --server.port=7860 --server.address=0.0.0.0 > streamlit.log 2>&1 &
 
-                  echo "🌐 Launching Cloudflare Tunnel"
+                  echo "🌐 Launching Cloudflare tunnel..."
                   nohup cloudflared tunnel --url http://localhost:7860 > cloudflare.log 2>&1 &
 
-                  echo "⏳ Waiting for Cloudflare URL"
-                  for i in {1..10}; do
-                      URL=\$(sed -n 's/.*\(https:\/\/[^ ]*\.trycloudflare\.com\).*/\1/p' cloudflare.log | tail -n1)
-                      if [ ! -z "\$URL" ]; then
-                          echo "✅ Public URL: \$URL"
-                          break
-                      fi
-                      sleep 2
-                  done
+                  echo "📄 Streamlit logs (tail):"
+                  tail -n 20 streamlit.log || echo "No logs yet."
 
-                  if [ -z "\$URL" ]; then
-                      echo "❌ Failed to find Cloudflare URL"
-                  fi
+                  echo "🌐 Cloudflare logs (tail):"
+                  tail -n 20 cloudflare.log || echo "No logs yet."
 
-                  echo "✅ Deployment Complete!"
+                  echo "✅ Deployment finished. Check cloudflare.log manually for the URL."
                   'EOF'
