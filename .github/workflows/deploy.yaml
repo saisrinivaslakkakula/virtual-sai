@@ -25,72 +25,69 @@ jobs:
 
                   set -e
 
-                  echo "📁 Using persistent volume at /workspace"
+                  echo "📁 Navigating to volume mount at /workspace"
                   cd /workspace
 
                   export REPO_DIR=/workspace/virtual-sai
                   export VENV_DIR=\$REPO_DIR/venv
                   export OLLAMA_MODELS=/workspace/.ollama
+                  export PATH=\$VENV_DIR/bin:\$PATH
 
-                  echo "🧹 Cleanup old venv if exists"
-                  [ -d "\$VENV_DIR" ] && rm -rf \$VENV_DIR || echo "No existing venv found"
-
-                  echo "📦 Cloning or pulling latest repo"
+                  echo "📂 Ensuring repo exists"
                   if [ ! -d "\$REPO_DIR/.git" ]; then
-                    git clone https://github.com/saisrinivaslakkakula/virtual-sai.git \$REPO_DIR
+                      git clone https://github.com/saisrinivaslakkakula/virtual-sai.git \$REPO_DIR
                   else
-                    cd \$REPO_DIR && git pull origin main
+                      cd \$REPO_DIR && git pull origin main
                   fi
 
                   cd \$REPO_DIR
 
-                  echo "🐍 Creating virtual environment in volume..."
+                  echo "🧹 Removing old virtual environment (if any)..."
+                  [ -d "\$VENV_DIR" ] && rm -rf \$VENV_DIR || echo "No venv to remove"
+
+                  echo "🐍 Creating virtual environment"
                   python3 -m venv \$VENV_DIR
                   source \$VENV_DIR/bin/activate
 
-                  echo "📦 Installing dependencies"
+                  echo "📦 Installing requirements..."
                   pip install --upgrade pip
                   pip install -r requirements.txt
 
-                  echo "🤖 Ensuring Ollama model directory exists..."
+                  echo "🧠 Preparing Ollama..."
                   mkdir -p \$OLLAMA_MODELS
                   export OLLAMA_MODELS=\$OLLAMA_MODELS
 
                   if ! pgrep -f "ollama serve" > /dev/null; then
-                    echo "🚀 Starting Ollama..."
-                    nohup ollama serve > \$REPO_DIR/ollama.log 2>&1 &
-                    sleep 3
+                      echo "🚀 Starting Ollama..."
+                      nohup ollama serve > ollama.log 2>&1 &
+                      sleep 3
                   else
-                    echo "✅ Ollama already running"
+                      echo "✅ Ollama already running"
                   fi
 
-                  echo "🧠 Pulling mistral model (if not present)..."
-                  ollama pull mistral || echo "⚠️ Pull failed — might already be present"
+                  echo "🤖 Pulling mistral model (if not present)..."
+                  ollama pull mistral || echo "⚠️ Mistral model pull skipped or failed"
 
-                  echo "🛑 Killing previous processes"
+                  echo "🛑 Stopping previous services"
                   pkill streamlit || true
                   pkill cloudflared || true
 
                   echo "🚀 Launching Streamlit..."
-                  nohup \$VENV_DIR/bin/streamlit run app.py \
-                    --server.port=7860 --server.address=0.0.0.0 \
-                    > streamlit.log 2>&1 &
+                  nohup streamlit run app.py --server.port=7860 --server.address=0.0.0.0 > streamlit.log 2>&1 &
 
                   echo "🌐 Launching Cloudflare tunnel..."
                   nohup cloudflared tunnel --url http://localhost:7860 > cloudflare.log 2>&1 &
 
-                  echo "⏳ Waiting for tunnel to initialize..."
-                  for i in {1..15}; do
-                    URL=\$(grep -o 'https://[^ ]*trycloudflare.com' cloudflare.log | tail -n1)
-                    if [ ! -z "\$URL" ]; then
-                      echo "✅ Public URL: \$URL"
-                      break
-                    fi
-                    sleep 2
-                  done
+                  echo "⏳ Waiting for Cloudflare to initialize..."
+                  sleep 5  # Give it time to generate the tunnel
 
-                  if [ -z "\$URL" ]; then
-                    echo "❌ Tunnel failed to generate public URL"
+                  echo "🌐 Extracting public URL..."
+                  URL=\$(awk '/trycloudflare/ {print \$NF}' cloudflare.log | tail -n1)
+
+                  if [ -n "\$URL" ]; then
+                      echo "✅ Public URL: \$URL"
+                  else
+                      echo "❌ Tunnel URL not found. Check cloudflare.log"
                   fi
 
                   echo "✅ Deployment Complete!"
