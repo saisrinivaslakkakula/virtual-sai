@@ -1,0 +1,65 @@
+name: 🚀 Full Deploy to RunPod
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    deploy:
+        name: Deploy Virtual Sai on RunPod
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: 📥 Checkout repository
+              uses: actions/checkout@v3
+
+            - name: 🔐 Setup SSH access
+              run: |
+                  mkdir -p ~/.ssh
+                  echo "${{ secrets.RUNPOD_SSH_KEY }}" > ~/.ssh/id_ed25519
+                  chmod 600 ~/.ssh/id_ed25519
+                  ssh-keyscan -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_HOST }} >> ~/.ssh/known_hosts
+
+            - name: 🛠️ SSH and Deploy on RunPod
+              run: |
+                  ssh -tt -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} << 'EOF'
+                    set -e
+
+                    echo "🧼 Cleaning up previous deployment..."
+                    rm -rf /workspace/virtual-sai
+                    git clone https://github.com/saisrinivaslakkakula/virtual-sai.git /workspace/virtual-sai
+                    cd /workspace/virtual-sai
+
+                    echo "🧠 Killing existing processes..."
+                    pkill -f "streamlit" || true
+                    pkill -f "cloudflared" || true
+
+                    echo "🐍 Recreating Python environment..."
+                    rm -rf venv
+                    python3 -m venv venv
+                    source venv/bin/activate
+
+                    echo "📦 Installing dependencies..."
+                    pip install --upgrade pip
+                    pip install -r requirements.txt
+
+                    echo "🚀 Starting Streamlit..."
+                    nohup venv/bin/streamlit run app.py \
+                      --server.port=7860 \
+                      --server.address=0.0.0.0 \
+                      --server.headless=true \
+                      --server.enableCORS=false \
+                      --server.enableXsrfProtection=false \
+                      > streamlit.log 2>&1 &
+
+                    echo "🌐 Starting Cloudflare tunnel..."
+                    nohup cloudflared tunnel --url http://localhost:7860 > cloudflare.log 2>&1 &
+
+                    sleep 10  # Give tunnel a few seconds to establish
+
+                    echo "🔗 Cloudflare URL (check below):"
+                    grep -o "https://.*\.trycloudflare\.com" cloudflare.log | head -n 1 || echo "⚠️ Tunnel URL not found."
+
+                    echo "✅ Deployment complete."
+                  EOF
