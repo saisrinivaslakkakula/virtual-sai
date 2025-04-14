@@ -24,61 +24,52 @@ jobs:
                   echo "📡 Connecting to RunPod via SSH..."
                   ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} << 'EOF'
 
-                  set -e  # Stop on first error
-
+                  set -e  # Exit on error
                   REPO_DIR=~/workspace/virtual-sai
 
-                  echo "📁 Ensuring repo dir exists..."
-                  mkdir -p \$REPO_DIR
-                  cd \$REPO_DIR || exit 1
+                  echo "📁 Ensuring repo directory exists"
+                  mkdir -p \$REPO_DIR && cd \$REPO_DIR
 
-                  echo "🧹 Removing old venv if exists..."
-                  if [ -d "venv" ]; then
-                      rm -rf venv && echo "✅ venv removed"
-                  else
-                      echo "⚠️ No venv found"
-                  fi
+                  echo "🧹 Cleaning old venv if exists"
+                  [ -d "venv" ] && rm -rf venv || echo "No existing venv"
 
-                  echo "📥 Pulling latest code..."
+                  echo "📥 Pulling latest code"
                   if [ ! -d ".git" ]; then
-                      echo "📦 Cloning fresh copy of repo"
-                      git clone https://github.com/saisrinivaslakkakula/virtual-sai.git .
+                    git clone https://github.com/saisrinivaslakkakula/virtual-sai.git .
                   else
-                      git pull origin main
+                    git pull origin main
                   fi
 
-                  echo "🐍 Creating fresh venv..."
+                  echo "🐍 Creating new venv"
                   python3 -m venv venv && source venv/bin/activate
 
-                  echo "📦 Installing dependencies..."
+                  echo "📦 Installing dependencies"
                   pip install --upgrade pip
                   pip install -r requirements.txt
 
-                  echo "🛑 Killing old processes..."
+                  echo "🛑 Killing existing services"
                   pkill streamlit || true
                   pkill cloudflared || true
 
-                  echo "🌐 Checking cloudflared installation..."
-                  if ! command -v cloudflared &> /dev/null; then
-                      echo "📥 Installing cloudflared..."
-                      curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
-                      dpkg -i cloudflared.deb
-                      rm cloudflared.deb
-                  fi
-
-                  echo "🚀 Launching Streamlit..."
+                  echo "🚀 Launching Streamlit"
                   nohup streamlit run app.py --server.port=7860 --server.address=0.0.0.0 > streamlit.log 2>&1 &
 
-                  sleep 5
-                  echo "🚀 Starting Cloudflare tunnel..."
+                  echo "🌐 Launching Cloudflare tunnel..."
                   nohup cloudflared tunnel --url http://localhost:7860 > cloudflare.log 2>&1 &
 
-                  sleep 5
-                  echo "📝 Streamlit log (last 10 lines):"
-                  tail -n 10 streamlit.log || echo "⚠️ No streamlit.log yet"
+                  echo "⏳ Waiting for Cloudflare tunnel to initialize..."
+                  for i in {1..10}; do
+                      URL=\$(grep -o 'https://.*\.trycloudflare.com' cloudflare.log | tail -n1)
+                      if [ ! -z "\$URL" ]; then
+                          echo "🌐 Public URL: \$URL"
+                          break
+                      fi
+                      sleep 2
+                  done
 
-                  echo "🌐 Cloudflare tunnel log (last 10 lines):"
-                  tail -n 10 cloudflare.log || echo "⚠️ No cloudflare.log yet"
+                  if [ -z "\$URL" ]; then
+                      echo "❌ Failed to extract Cloudflare URL"
+                  fi
 
-                  echo "✅ Deployment Complete!"
+                  echo "✅ Deployment complete."
                   EOF
