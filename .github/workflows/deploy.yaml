@@ -12,7 +12,7 @@ jobs:
             - name: 🧾 Checkout Code
               uses: actions/checkout@v3
 
-            - name: 🔐 Set Up SSH
+            - name: 🔐 Set Up SSH Access
               run: |
                   mkdir -p ~/.ssh
                   echo "${{ secrets.RUNPOD_SSH_KEY }}" > ~/.ssh/id_ed25519
@@ -21,47 +21,64 @@ jobs:
 
             - name: 🚀 Deploy and Launch on RunPod
               run: |
-                  echo "📁 Connecting to RunPod and setting up deployment"
+                  echo "📡 Connecting to RunPod via SSH..."
                   ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} << 'EOF'
 
-                  set -e  # Fail on other unhandled errors
+                  set -e  # Stop on first error
 
-                  REPO_DIR=~/virtual-sai
+                  REPO_DIR=~/workspace/virtual-sai
 
-                  echo "📂 Ensuring project directory exists..."
-                  mkdir -p $REPO_DIR
-                  cd $REPO_DIR || exit 1
+                  echo "📁 Ensuring repo dir exists..."
+                  mkdir -p \$REPO_DIR
+                  cd \$REPO_DIR || exit 1
 
-                  echo "🧹 Cleaning up old virtual environment if exists..."
+                  echo "🧹 Removing old venv if exists..."
                   if [ -d "venv" ]; then
-                      rm -rf venv
-                      echo "✅ Removed old venv"
+                      rm -rf venv && echo "✅ venv removed"
                   else
-                      echo "⚠️ No existing venv to remove"
+                      echo "⚠️ No venv found"
                   fi
 
-                  echo "📥 Pulling latest code (or cloning if missing)..."
+                  echo "📥 Pulling latest code..."
                   if [ ! -d ".git" ]; then
-                      echo "🔁 Git repo not found, cloning afresh"
+                      echo "📦 Cloning fresh copy of repo"
                       git clone https://github.com/saisrinivaslakkakula/virtual-sai.git .
                   else
                       git pull origin main
                   fi
 
-                  echo "🐍 Creating new Python virtual environment..."
+                  echo "🐍 Creating fresh venv..."
                   python3 -m venv venv && source venv/bin/activate
 
                   echo "📦 Installing dependencies..."
                   pip install --upgrade pip
                   pip install -r requirements.txt
 
-                  echo "🧠 Restarting backend services..."
+                  echo "🛑 Killing old processes..."
                   pkill streamlit || true
                   pkill cloudflared || true
 
+                  echo "🌐 Checking cloudflared installation..."
+                  if ! command -v cloudflared &> /dev/null; then
+                      echo "📥 Installing cloudflared..."
+                      curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+                      dpkg -i cloudflared.deb
+                      rm cloudflared.deb
+                  fi
+
+                  echo "🚀 Launching Streamlit..."
                   nohup streamlit run app.py --server.port=7860 --server.address=0.0.0.0 > streamlit.log 2>&1 &
+
+                  sleep 5
+                  echo "🚀 Starting Cloudflare tunnel..."
                   nohup cloudflared tunnel --url http://localhost:7860 > cloudflare.log 2>&1 &
 
-                  echo "✅ Deployment complete!"
+                  sleep 5
+                  echo "📝 Streamlit log (last 10 lines):"
+                  tail -n 10 streamlit.log || echo "⚠️ No streamlit.log yet"
 
+                  echo "🌐 Cloudflare tunnel log (last 10 lines):"
+                  tail -n 10 cloudflare.log || echo "⚠️ No cloudflare.log yet"
+
+                  echo "✅ Deployment Complete!"
                   EOF
