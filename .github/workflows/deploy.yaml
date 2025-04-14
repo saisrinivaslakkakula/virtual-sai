@@ -51,23 +51,26 @@ jobs:
                   pkill streamlit || true
                   pkill cloudflared || true
 
-                  echo "🤖 Checking if Ollama is running..."
-
-                    if ! pgrep -f "ollama" > /dev/null; then
-                        echo "🚀 Starting Ollama..."
-                        nohup ollama serve > ollama.log 2>&1 &
-                        sleep 5
+                  echo "📥 Ensuring Ollama is installed"
+                    if ! command -v ollama &> /dev/null; then
+                        echo "🔧 Installing Ollama..."
+                        curl -fsSL https://ollama.com/install.sh | sh
                     else
-                        echo "✅ Ollama is already running"
+                        echo "✅ Ollama already installed"
                     fi
 
-                    echo "🧠 Checking if 'mistral' model is present..."
+                    echo "🤖 Starting Ollama service..."
+                    nohup ollama serve > ollama.log 2>&1 &
+                    sleep 5
+
+                    echo "🧠 Checking if 'mistral' model is available..."
                     if ! ollama list | grep -q "mistral"; then
-                        echo "📥 Pulling mistral model..."
+                        echo "📦 Pulling mistral model..."
                         ollama pull mistral
                     else
-                        echo "✅ Mistral already present"
+                        echo "✅ Mistral model is ready"
                     fi
+
                   echo "🚀 Launching Streamlit"
                   nohup streamlit run app.py --server.port=7860 --server.address=0.0.0.0 > streamlit.log 2>&1 &
 
