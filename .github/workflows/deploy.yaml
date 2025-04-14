@@ -12,18 +12,29 @@ jobs:
             - name: 🧾 Checkout Repository
               uses: actions/checkout@v3
 
-            - name: 🔐 Setup SSH Access
+            - name: 🔐 Setup SSH
               run: |
                   mkdir -p ~/.ssh
                   echo "${{ secrets.RUNPOD_SSH_KEY }}" > ~/.ssh/id_ed25519
                   chmod 600 ~/.ssh/id_ed25519
                   ssh-keyscan -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_HOST }} >> ~/.ssh/known_hosts
 
-            - name: 📦 Deploy to RunPod & Launch
+            - name: 🚀 Deploy on RunPod with Full Setup
               run: |
                   ssh -i ~/.ssh/id_ed25519 -p ${{ secrets.RUNPOD_PORT }} -o StrictHostKeyChecking=no ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} << 'EOF'
 
                   set -e
+                  echo "📦 Bootstrapping base system with missing packages..."
+
+                  if ! command -v apt > /dev/null; then
+                    echo "❌ apt not found. Please use a base Ubuntu image."
+                    exit 1
+                  fi
+
+                  apt update && apt install -y \
+                    curl unzip git bash coreutils vim ca-certificates \
+                    software-properties-common lsb-release python3-pip python3-venv
+
                   echo "🔁 Starting remote deployment on RunPod..."
 
                   export REPO_DIR=/workspace/virtual-sai
@@ -31,34 +42,27 @@ jobs:
                   export PATH=\$VENV_DIR/bin:\$PATH
 
                   echo "📁 Ensuring repo directory exists"
-                  mkdir -p \$REPO_DIR
-                  cd \$REPO_DIR
+                  mkdir -p \$REPO_DIR && cd \$REPO_DIR
 
-                  echo "🔍 Checking git..."
-                  if ! command -v git &> /dev/null; then
-                    echo "📦 Installing git..."
-                    apt update && apt install -y git
-                  fi
-
-                  echo "🔄 Cloning or pulling repo"
+                  echo "🔄 Cloning or pulling latest repo"
                   if [ ! -d ".git" ]; then
                     git clone https://github.com/saisrinivaslakkakula/virtual-sai.git .
                   else
                     git pull origin main
                   fi
 
-                  echo "🧹 Removing old virtualenv if exists"
+                  echo "🧹 Cleaning old venv if exists"
                   rm -rf \$VENV_DIR || true
 
-                  echo "🐍 Creating new virtualenv"
+                  echo "🐍 Creating new venv"
                   python3 -m venv \$VENV_DIR
                   source \$VENV_DIR/bin/activate
 
-                  echo "📦 Installing dependencies"
+                  echo "📦 Installing Python requirements"
                   pip install --upgrade pip
                   pip install -r requirements.txt
 
-                  echo "🤖 Verifying Ollama..."
+                  echo "🤖 Checking Ollama..."
                   if ! pgrep -f "ollama" > /dev/null; then
                     echo "🚀 Starting Ollama..."
                     nohup ollama serve > ollama.log 2>&1 &
@@ -67,7 +71,7 @@ jobs:
                     echo "✅ Ollama already running"
                   fi
 
-                  echo "🛑 Killing existing services"
+                  echo "🛑 Killing previous processes"
                   pkill streamlit || true
                   pkill cloudflared || true
 
@@ -77,7 +81,7 @@ jobs:
                   echo "🌐 Launching Cloudflare tunnel..."
                   nohup cloudflared tunnel --url http://localhost:7860 > cloudflare.log 2>&1 &
 
-                  echo "⏳ Waiting for tunnel URL to appear..."
+                  echo "⏳ Waiting for Cloudflare URL..."
                   for i in {1..10}; do
                     URL=\$(grep -oE 'https://[a-zA-Z0-9.-]+\.trycloudflare\.com' cloudflare.log | tail -n1)
                     if [ ! -z "\$URL" ]; then
@@ -87,5 +91,9 @@ jobs:
                     sleep 2
                   done
 
-                  echo "✅ Deployment finished!"
+                  if [ -z "\$URL" ]; then
+                    echo "❌ Failed to extract Cloudflare URL"
+                  fi
+
+                  echo "✅ Deployment complete!"
                   EOF
