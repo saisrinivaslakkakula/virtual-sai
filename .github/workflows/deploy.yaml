@@ -2,8 +2,7 @@ name: 🚀 Deploy to RunPod
 
 on:
     push:
-        branches:
-            - main
+        branches: [main]
 
 jobs:
     deploy:
@@ -13,70 +12,38 @@ jobs:
             - name: 🧾 Checkout Code
               uses: actions/checkout@v3
 
-            - name: 🐍 Set Up Python
-              uses: actions/setup-python@v4
-              with:
-                  python-version: "3.10"
-
-            - name: 🔐 Debug SSH Setup
+            - name: 🔐 Set Up SSH
               run: |
-                  echo "🔍 Creating ~/.ssh directory..."
                   mkdir -p ~/.ssh
-
-                  echo "🔐 Writing SSH key..."
                   echo "${{ secrets.RUNPOD_SSH_KEY }}" > ~/.ssh/id_ed25519
                   chmod 600 ~/.ssh/id_ed25519
+                  ssh-keyscan -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_HOST }} >> ~/.ssh/known_hosts
 
-                  echo "🔍 SSH Key First Few Lines:"
-                  head -n 5 ~/.ssh/id_ed25519 || echo "(failed to read key)"
-
-                  echo "🌐 Verifying SSH access to ${{ secrets.RUNPOD_HOST }} on port ${{ secrets.RUNPOD_PORT }}"
-                  ssh-keyscan -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_HOST }} >> ~/.ssh/known_hosts || echo "⚠️ ssh-keyscan failed"
-
-                  echo "📂 Known hosts:"
-                  cat ~/.ssh/known_hosts || echo "(no known_hosts)"
-
-            - name: 🧪 Debug Secrets and Env Vars
+            - name: 🚀 Deploy to RunPod
               run: |
-                  echo "🔍 Checking secret values (redacted):"
-                  echo "RUNPOD_HOST: ${{ secrets.RUNPOD_HOST }}"
-                  echo "RUNPOD_PORT: ${{ secrets.RUNPOD_PORT }}"
-                  echo "RUNPOD_USER: ${{ secrets.RUNPOD_USER }}"
-                  echo "Private key preview:"
-                  echo "${{ secrets.RUNPOD_SSH_KEY }}" | head -n 5
+                  ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} <<EOF
+                    set -e
+                    echo "🧹 Cleaning old venv (if exists)"
+                    rm -rf ~/virtual-sai/venv || true
 
-            - name: 🧪 Verbose SSH Connection Test
-              run: |
-                  echo "🚀 Attempting SSH connection to RunPod with -vvv..."
-                  ssh -vvv -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} -p ${{ secrets.RUNPOD_PORT }} "echo 🟢 Connected to RunPod!"
+                    echo "📥 Pulling latest code"
+                    cd ~/virtual-sai || git clone https://github.com/saisrinivaslakkakula/virtual-sai.git ~/virtual-sai && cd ~/virtual-sai
+                    git pull origin main
 
-            - name: Deploy Setup and Launch
-              run: |
-                  echo "📁 Navigating to project directory"
-                  ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} << 'EOF'
+                    echo "🐍 Creating virtualenv"
+                    python3 -m venv venv
+                    source venv/bin/activate
 
-                  set -e  # Exit on error
+                    echo "📦 Installing dependencies"
+                    pip install --upgrade pip
+                    pip install -r requirements.txt
 
-                  echo "🧹 Cleaning up old environment"
-                  rm -rf ~/virtual-sai/venv || true
+                    echo "🧠 Restarting services"
+                    pkill streamlit || true
+                    pkill cloudflared || true
 
-                  echo "📥 Pulling latest code"
-                  cd ~/virtual-sai
-                  git pull origin main
+                    nohup streamlit run app.py --server.port=7860 --server.address=0.0.0.0 > streamlit.log 2>&1 &
+                    nohup cloudflared tunnel --url http://localhost:7860 > cloudflare.log 2>&1 &
 
-                  echo "🐍 Setting up virtual environment"
-                  python3 -m venv venv
-                  source venv/bin/activate
-
-                  echo "📦 Installing dependencies"
-                  pip install --upgrade pip
-                  pip install -r requirements.txt
-
-                  echo "🧠 Starting Streamlit + Ollama + Cloudflare (background)"
-                  pkill streamlit || true
-                  pkill cloudflared || true
-                  nohup streamlit run app.py --server.port=7860 --server.address=0.0.0.0 > streamlit.log 2>&1 &
-                  nohup cloudflared tunnel --url http://localhost:7860 > cloudflare.log 2>&1 &
-
-                  echo "✅ Deployment completed!"
+                    echo "✅ Deployment done!"
                   EOF
