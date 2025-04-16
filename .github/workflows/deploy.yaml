@@ -64,9 +64,32 @@ jobs:
                         echo "✅ Ollama already installed"
                     fi
 
+                    echo "🚀 Starting Ollama server in background..."
+                    nohup ollama serve > ollama.log 2>&1 &
+                    sleep 3  # Give it a few seconds to boot
 
-                  echo "🤖 Pulling mistral..."
-                  ollama pull mistral || echo "✅ Already exists"
+                    # Check API health
+                    echo "🔍 Waiting for Ollama API to become ready..."
+                    OLLAMA_READY=0
+                    for i in {1..10}; do
+                        if curl -s http://localhost:11434/api/tags > /dev/null; then
+                            echo "✅ Ollama is up"
+                            OLLAMA_READY=1
+                            break
+                        else
+                            echo "⏳ Still waiting for Ollama..."
+                            sleep 2
+                        fi
+                    done
+
+                    if [ "$OLLAMA_READY" -ne 1 ]; then
+                        echo "❌ Ollama did not start in time"
+                        tail -n 20 ollama.log || echo "(no ollama logs)"
+                        exit 1
+                    fi
+
+                    echo "🤖 Pulling mistral..."
+                    ollama pull mistral || echo "⚠️ Mistral already exists or pulled earlier"
 
                   echo "🛑 Killing previous..."
                   pkill streamlit || true
