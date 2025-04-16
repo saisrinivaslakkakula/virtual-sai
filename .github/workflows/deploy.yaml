@@ -73,7 +73,7 @@ jobs:
                   tail -n 20 streamlit.log || echo "No logs yet."
 
                   echo "🌐 Cloudflare logs (tail):"
-                  tail -n 20 cloudflare.log || echo "No logs yet."
+                  tail -n 40 cloudflare.log || echo "No logs yet."
 
                   echo "✅ Deployment finished. Check cloudflare.log manually for the URL."
                   EOF
