@@ -16,11 +16,8 @@ jobs:
               run: |
                   echo "🔐 Creating SSH directory"
                   mkdir -p ~/.ssh
-
                   echo "${{ secrets.RUNPOD_SSH_KEY }}" > ~/.ssh/id_ed25519
                   chmod 600 ~/.ssh/id_ed25519
-
-                  echo "🔐 Adding known host"
                   ssh-keyscan -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || echo "⚠️ ssh-keyscan failed"
 
             - name: 🧪 Test SSH
@@ -28,65 +25,78 @@ jobs:
                   echo "🔌 Testing SSH..."
                   ssh -i ~/.ssh/id_ed25519 -p ${{ secrets.RUNPOD_PORT }} -o StrictHostKeyChecking=no ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} "echo 🟢 SSH OK" || echo "❌ SSH Failed"
 
-            - name: 🚀 Remote Deploy to RunPod
+            - name: 🚀 Deploy and Launch on RunPod
               run: |
                   ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} << 'EOF'
 
                   set -e
                   REPO_DIR=/workspace/virtual-sai
 
-                  echo "📁 Navigating to repo dir"
+                  echo "🔁 Starting remote deployment on RunPod..."
+
+                  echo "📁 Ensuring repo directory exists"
                   mkdir -p \$REPO_DIR && cd \$REPO_DIR
 
-                  echo "🧹 Clean venv + cache"
+                  echo "🧹 Cleaning old venv/files..."
                   rm -rf venv /tmp/* ~/.cache || true
 
-                  echo "📥 Pull latest code"
+                  echo "📥 Syncing source..."
                   if [ ! -d ".git" ]; then
                       git clone https://github.com/saisrinivaslakkakula/virtual-sai.git .
                   else
                       git pull origin main
                   fi
 
-                  echo "🐍 Create venv"
+                  echo "🐍 Creating venv"
                   python3 -m venv venv && source venv/bin/activate
 
-                  echo "📦 Install deps"
+                  echo "📦 Installing deps"
                   pip install --upgrade pip
                   pip install -r requirements.txt
 
-                  echo "🤖 Pull Mistral model"
-                  ollama pull mistral || echo "Already exists"
+                  echo "🤖 Checking Ollama..."
+                  if ! command -v ollama &> /dev/null; then
+                      curl -fsSL https://ollama.com/download.sh | sh || echo "⚠️ Ollama install failed"
+                  fi
 
-                  echo "🛑 Kill any previous services"
+                  echo "🤖 Pulling mistral..."
+                  ollama pull mistral || echo "✅ Already exists"
+
+                  echo "🛑 Killing previous..."
                   pkill streamlit || true
                   pkill cloudflared || true
 
-                  echo "✅ Streamlit starting..."
+                  echo "🚀 Launching Streamlit..."
                   nohup streamlit run app.py --server.port=7860 --server.address=0.0.0.0 > streamlit.log 2>&1 &
 
-                  echo "🕒 Waiting for streamlit..."
+                  echo "🕒 Waiting for Streamlit..."
                   sleep 5
 
-                  echo "🔎 Checking cloudflared..."
-                  if ! command -v cloudflared &> /dev/null; then
-                      echo "📥 Installing Cloudflare tunnel..."
-                      curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o cloudflared
-                      chmod +x cloudflared
-                      mv cloudflared /usr/local/bin/
+                  echo "🧠 Checking if Streamlit is running..."
+                  if pgrep -f "streamlit run" > /dev/null; then
+                      echo "✅ Streamlit is up"
+                  else
+                      echo "❌ Streamlit failed to start"
+                      tail -n 40 streamlit.log || echo "(No logs)"
+                      exit 1
                   fi
 
-                  echo "🌐 Launching tunnel..."
+                  echo "🔍 Checking cloudflared..."
+                  if ! command -v cloudflared &> /dev/null; then
+                      echo "📥 Installing Cloudflared..."
+                      curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o cloudflared
+                      chmod +x cloudflared
+                      mv cloudflared /usr/local/bin/cloudflared
+                  fi
+
+                  echo "🌐 Launching Cloudflare tunnel..."
                   nohup cloudflared tunnel --url http://localhost:7860 > cloudflare.log 2>&1 &
 
-                  echo "⏳ Sleep before logs..."
-                  sleep 5
+                  echo "📄 Streamlit logs:"
+                  tail -n 30 streamlit.log || echo "⚠️ No logs"
 
-                  echo "📄 Streamlit (tail)"
-                  tail -n 20 streamlit.log || echo "(No streamlit logs)"
+                  echo "📄 Cloudflare logs:"
+                  tail -n 30 cloudflare.log || echo "⚠️ No logs"
 
-                  echo "🌐 Cloudflare logs (tail)"
-                  tail -n 40 cloudflare.log || echo "(No cloudflare logs)"
-
-                  echo "✅ Deployment complete!"
+                  echo "✅ Deployment complete. Check cloudflare.log for your tunnel URL"
                   EOF
