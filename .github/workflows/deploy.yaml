@@ -62,7 +62,6 @@ jobs:
                       echo "📜 Previous cloudflare logs:"
                       cat cloudflare.log
                   fi
-
                   echo "🚀 Launching Streamlit..."
                   nohup venv/bin/streamlit run app.py --server.port=7860 --server.address=0.0.0.0 > streamlit.log 2>&1 &
 
