@@ -14,10 +14,18 @@ jobs:
 
             - name: 🔐 Set Up SSH Access
               run: |
+                  echo "🔐 Creating SSH directory"
                   mkdir -p ~/.ssh
+
+                  echo "🔐 Writing SSH private key"
                   echo "${{ secrets.RUNPOD_SSH_KEY }}" > ~/.ssh/id_ed25519
                   chmod 600 ~/.ssh/id_ed25519
-                  ssh-keyscan -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_HOST }} >> ~/.ssh/known_hosts
+
+                  echo "🔐 Adding known host for SSH (ignore failure)"
+                  ssh-keyscan -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || echo "⚠️ ssh-keyscan failed, continuing anyway"
+
+                  echo "🔐 Known hosts:"
+                  cat ~/.ssh/known_hosts || echo "(none)"
 
             - name: 🧪 Test SSH Connection
               run: |
