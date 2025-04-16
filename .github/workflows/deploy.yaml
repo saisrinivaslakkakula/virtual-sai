@@ -22,18 +22,20 @@ jobs:
             - name: 🚀 Deploy and Launch on RunPod
               run: |
                   echo "📡 Connecting to RunPod via SSH..."
-                  ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} << EOF
+                  ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} << 'EOF'
 
                   set -e
                   REPO_DIR=/workspace/virtual-sai
 
-                  echo "📁 Navigating to repo"
+                  echo "🔁 Starting remote deployment on RunPod..."
+
+                  echo "📁 Ensuring repo directory exists"
                   mkdir -p \$REPO_DIR && cd \$REPO_DIR
 
-                  echo "🧹 Cleaning old venv + cache"
+                  echo "🧹 Cleaning up old files and venv..."
                   rm -rf venv /tmp/* ~/.cache || true
 
-                  echo "📥 Pulling latest code"
+                  echo "📥 Cloning or pulling latest code"
                   if [ ! -d ".git" ]; then
                     git clone https://github.com/saisrinivaslakkakula/virtual-sai.git .
                   else
@@ -43,16 +45,35 @@ jobs:
                   echo "🐍 Creating virtual environment"
                   python3 -m venv venv && source venv/bin/activate
 
-                  echo "📦 Installing dependencies"
+                  echo "📦 Installing Python dependencies"
                   pip install --upgrade pip
                   pip install -r requirements.txt
 
-                  echo "🛑 Killing old Streamlit"
-                  pkill streamlit || true
+                  echo "🤖 Pulling Mistral (if needed)..."
+                  ollama pull mistral || echo "Mistral already exists."
 
-                  echo "🚀 Starting Streamlit"
+                  echo "🛑 Killing previous services"
+                  pkill streamlit || true
+                  pkill cloudflared || true
+
+                  echo "📝 Setting up cloudflare.log"
+                  touch cloudflare.log
+                  if [ -s cloudflare.log ]; then
+                      echo "📜 Previous cloudflare logs:"
+                      cat cloudflare.log
+                  fi
+
+                  echo "🚀 Launching Streamlit..."
                   nohup venv/bin/streamlit run app.py --server.port=7860 --server.address=0.0.0.0 > streamlit.log 2>&1 &
 
-                  echo "✅ Streamlit started (no Cloudflare tunnel)"
-                  tail -n 20 streamlit.log || echo "(log not ready)"
+                  echo "🌐 Launching Cloudflare tunnel..."
+                  nohup cloudflared tunnel --url http://localhost:7860 > cloudflare.log 2>&1 &
+
+                  echo "📄 Streamlit logs (tail):"
+                  tail -n 20 streamlit.log || echo "No logs yet."
+
+                  echo "🌐 Cloudflare logs (tail):"
+                  tail -n 20 cloudflare.log || echo "No logs yet."
+
+                  echo "✅ Deployment finished. Check cloudflare.log manually for the URL."
                   EOF
