@@ -7,7 +7,7 @@ from rag_brain import load_rag_engine, get_answer, log
 log("🚀 Streamlit app starting...")
 
 st.set_page_config(page_title="Virtual Sai", layout="centered")
-st.title("💬 Ask Virtual Sai")
+st.title("💬 sAI")
 
 # 🔹 Persona Selection
 persona = st.radio("Choose how Virtual Sai should respond:", [
@@ -22,7 +22,7 @@ if "rag" not in st.session_state:
 
 
 # 📌 Suggestions
-st.markdown("#### 👋 Hi, I’m Sai. Ask me anything — or try one of these:")
+st.markdown("#### 👋 Hi, I’m Virtual Sai. Ask me anything — or try one of these:")
 suggestions = {
     "🛠️ My Walmart Ads Project": "Can you describe your project on Meta campaign automation at Walmart?",
     "☁️ My Work at AWS": "Tell me about your work on AWS RDS and DB2 migration.",
