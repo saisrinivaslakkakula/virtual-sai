@@ -20,26 +20,6 @@ if "rag" not in st.session_state:
     log("🔁 Initializing RAG brain...")
     st.session_state.rag, st.session_state.llm, st.session_state.embed = load_rag_engine()
 
-# 📂 File Upload
-st.markdown("### 📂 Upload New Resume or Work Journals")
-uploaded_files = st.file_uploader(
-    "Drop files here (PDF, DOCX, or TXT)",
-    type=["pdf", "docx", "txt"],
-    accept_multiple_files=True
-)
-
-if uploaded_files:
-    for uploaded_file in uploaded_files:
-        save_path = os.path.join("data", uploaded_file.name)
-        with open(save_path, "wb") as f:
-            f.write(uploaded_file.getbuffer())
-        log(f"📁 Uploaded: {uploaded_file.name}")
-    st.success(f"Uploaded {len(uploaded_files)} file(s) to `data/` folder.")
-
-    if st.button("🔄 Refresh Virtual Sai’s Brain"):
-        st.session_state.rag, st.session_state.llm, st.session_state.embed = load_rag_engine()
-        st.success("🧠 Brain refreshed with latest documents.")
-        log("🧠 Brain refreshed with uploaded documents.")
 
 # 📌 Suggestions
 st.markdown("#### 👋 Hi, I’m Sai. Ask me anything — or try one of these:")
