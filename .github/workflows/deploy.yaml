@@ -54,10 +54,16 @@ jobs:
                   pip install --upgrade pip
                   pip install -r requirements.txt
 
-                  echo "🤖 Checking Ollama..."
-                  if ! command -v ollama &> /dev/null; then
-                      curl -fsSL https://ollama.com/download.sh | sh || echo "⚠️ Ollama install failed"
-                  fi
+                  echo "🤖 Checking if Ollama is installed..."
+                    if ! command -v ollama &> /dev/null; then
+                        echo "📥 Installing Ollama..."
+                        curl -fsSL https://ollama.com/install.sh -o ollama.sh
+                        chmod +x ollama.sh
+                        ./ollama.sh || { echo "❌ Ollama installation failed"; exit 1; }
+                    else
+                        echo "✅ Ollama already installed"
+                    fi
+
 
                   echo "🤖 Pulling mistral..."
                   ollama pull mistral || echo "✅ Already exists"
