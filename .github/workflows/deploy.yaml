@@ -17,75 +17,76 @@ jobs:
                   echo "🔐 Creating SSH directory"
                   mkdir -p ~/.ssh
 
-                  echo "🔐 Writing SSH private key"
                   echo "${{ secrets.RUNPOD_SSH_KEY }}" > ~/.ssh/id_ed25519
                   chmod 600 ~/.ssh/id_ed25519
 
-                  echo "🔐 Adding known host for SSH (ignore failure)"
-                  ssh-keyscan -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || echo "⚠️ ssh-keyscan failed, continuing anyway"
+                  echo "🔐 Adding known host"
+                  ssh-keyscan -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || echo "⚠️ ssh-keyscan failed"
 
-                  echo "🔐 Known hosts:"
-                  cat ~/.ssh/known_hosts || echo "(none)"
-
-            - name: 🧪 Test SSH Connection
+            - name: 🧪 Test SSH
               run: |
-                  echo "🔌 Testing SSH connection to RunPod..."
-                  ssh -i ~/.ssh/id_ed25519 -p ${{ secrets.RUNPOD_PORT }} -o StrictHostKeyChecking=no ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} "echo 🟢 SSH Connected!" || echo "❌ SSH Failed!"
+                  echo "🔌 Testing SSH..."
+                  ssh -i ~/.ssh/id_ed25519 -p ${{ secrets.RUNPOD_PORT }} -o StrictHostKeyChecking=no ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} "echo 🟢 SSH OK" || echo "❌ SSH Failed"
 
-            - name: 🚀 Deploy and Launch on RunPod
+            - name: 🚀 Remote Deploy to RunPod
               run: |
-                  echo "📡 Connecting to RunPod via SSH..."
                   ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no -p ${{ secrets.RUNPOD_PORT }} ${{ secrets.RUNPOD_USER }}@${{ secrets.RUNPOD_HOST }} << 'EOF'
 
                   set -e
                   REPO_DIR=/workspace/virtual-sai
 
-                  echo "🔁 Starting remote deployment on RunPod..."
-
-                  echo "📁 Ensuring repo directory exists"
+                  echo "📁 Navigating to repo dir"
                   mkdir -p \$REPO_DIR && cd \$REPO_DIR
 
-                  echo "🧹 Cleaning up old files and venv..."
+                  echo "🧹 Clean venv + cache"
                   rm -rf venv /tmp/* ~/.cache || true
 
-                  echo "📥 Cloning or pulling latest code"
+                  echo "📥 Pull latest code"
                   if [ ! -d ".git" ]; then
-                    git clone https://github.com/saisrinivaslakkakula/virtual-sai.git .
+                      git clone https://github.com/saisrinivaslakkakula/virtual-sai.git .
                   else
-                    git pull origin main
+                      git pull origin main
                   fi
 
-                  echo "🐍 Creating virtual environment"
+                  echo "🐍 Create venv"
                   python3 -m venv venv && source venv/bin/activate
 
-                  echo "📦 Installing Python dependencies"
+                  echo "📦 Install deps"
                   pip install --upgrade pip
                   pip install -r requirements.txt
 
-                  echo "🤖 Pulling Mistral (if needed)..."
-                  ollama pull mistral || echo "Mistral already exists."
+                  echo "🤖 Pull Mistral model"
+                  ollama pull mistral || echo "Already exists"
 
-                  echo "🛑 Killing previous services"
+                  echo "🛑 Kill any previous services"
                   pkill streamlit || true
                   pkill cloudflared || true
 
-                  echo "📝 Setting up cloudflare.log"
-                  touch cloudflare.log
-                  if [ -s cloudflare.log ]; then
-                      echo "📜 Previous cloudflare logs:"
-                      cat cloudflare.log
-                  fi
-                  echo "🚀 Launching Streamlit..."
-                  nohup venv/bin/streamlit run app.py --server.port=7860 --server.address=0.0.0.0 > streamlit.log 2>&1 &
+                  echo "✅ Streamlit starting..."
+                  nohup streamlit run app.py --server.port=7860 --server.address=0.0.0.0 > streamlit.log 2>&1 &
 
-                  echo "🌐 Launching Cloudflare tunnel..."
+                  echo "🕒 Waiting for streamlit..."
+                  sleep 5
+
+                  echo "🔎 Checking cloudflared..."
+                  if ! command -v cloudflared &> /dev/null; then
+                      echo "📥 Installing Cloudflare tunnel..."
+                      curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o cloudflared
+                      chmod +x cloudflared
+                      mv cloudflared /usr/local/bin/
+                  fi
+
+                  echo "🌐 Launching tunnel..."
                   nohup cloudflared tunnel --url http://localhost:7860 > cloudflare.log 2>&1 &
 
-                  echo "📄 Streamlit logs (tail):"
-                  tail -n 20 streamlit.log || echo "No logs yet."
+                  echo "⏳ Sleep before logs..."
+                  sleep 5
 
-                  echo "🌐 Cloudflare logs (tail):"
-                  tail -n 40 cloudflare.log || echo "No logs yet."
+                  echo "📄 Streamlit (tail)"
+                  tail -n 20 streamlit.log || echo "(No streamlit logs)"
 
-                  echo "✅ Deployment finished. Check cloudflare.log manually for the URL."
+                  echo "🌐 Cloudflare logs (tail)"
+                  tail -n 40 cloudflare.log || echo "(No cloudflare logs)"
+
+                  echo "✅ Deployment complete!"
                   EOF
