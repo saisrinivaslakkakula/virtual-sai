@@ -47,7 +47,7 @@ def load_rag_engine():
         log(f"📃 Doc {i+1} preview: {snippet}...")
 
     log("🔤 Loading embedding model...")
-    embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5")
+    embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-small-en-v1.5", device="cuda")
     log("✅ Embedding model loaded.")
 
     log("🤖 Loading Mistral via Ollama...")
