@@ -1,0 +1,195 @@
+﻿Walmart Marketing Tech Work Journal – App Platform and Data Pipelines
+I am part of Marketing Tech org at Walmart. Our parallel teams deal with Data pipelines heavily where we deal with building Automated Applications to facilitate Advertisement Campaigns on different marketing channels like Meta, Pinterest, Tiktok, Google, Bing etc.
+ 
+
+When we take Marketing Campaigns we have 3 main types of digital marketing
+1.            Search Campaigns- Search Engine Marketing (SEM): These Campaigns and respective items/offers are shown in the search engine results when an end user searches for a particular item. Let’s say if any user goes to google.com and searches for Nike Shoes, the best offer(s) for those items will be displayed as search results that is being sold/fulfilled by Walmart.
+2.            Display Campaigns – Display Paid Social (DPS): These Campaign items are displayed in the social media feed once user browses through their social media feed. Let’s take Meta for example, ad can be displayed in feed, insta gram/FB story, reels etc.
+3.            Affiliate Campaigns (AFFL): These campaigns are affiliate related campaigns. That means if a you tube or social media influencer promotes a particular campaign in their content and say “Hey! Click on this link below to get x% discount”.
+ 
+All these 3 are considered as Marketing Vehicle in terms of Walmart’s marketing tech terminology.
+ 
+Coming to App Platform, which I mostly work on, We support applications or services that facilitates either Walmart internal marketing team or sellers directly to manage campaigns in a seamless automatic way. That includes creation of campaigns, updating, adding more items to existing campaigns, pausing, resuming, stopping and deleting the campaigns whenever necessary. That means end to end campaign lifecycle can be created and managed with our applications.
+
+How do we do that?
+Our internal Walmart Spring boot based back end services, coupled with front end UI. Our services takes in requests from users (internal marketing team or sellers), validates them, and routes them to downstream marketing vehicle specific micro-services, co buy nstructs necessary payload for engine specific API calls, calls the engine APIs (Meta/google etc). Receives the response of the engine generated ids and store them in our internal databases.
+ 
+I will talk about this more in detail later and add necessary points as we go.
+ 
+Data Pipelines:
+This is where most of the work happens and are key part in entire marketing tech scope. This is where most of the Data Engineering stuff happens. We as Application engineers most of the times collaborate with our Data Engineering teams, contribute to their projects as in when necessary to ensure our data pipelines are running smooth.
+ 
+What are Data pipelines?
+In terms of Marketing tech context, data pipelines are the essential part where Walmart specific item’s real time data must be sent to respective marketing engine’s data sharing catalogues. For example, let’s say Nike shoes itself, we need to send upto date information about that item to all the partner shared catalogues like it’s name, description, images, price, availability, offer, inventory info etc. So that partner specific shared catalogues have almost up to date information about the items. We maintain 1 or more catalogues for respective partners like google, bing, meta, pinterest, cretio, tiktok etc.
+ 
+For google especially, there are two types of advertisements
+PLA – Product Level Ads
+LIA – Local Inventory Ads
+
+
+If someone searches for a product, usually by their respective location, the local inventory specific item info must be shown as ad right. Those are LIA.
+
+However, on contrary, if country wide shippable product was decided to show, then they are called PLAs. When creating the campaigns itself, user has previlage to choose either PLA or LIA. They can choose to create two types of ads as well for each category if necessary.
+Now, the data pipeline that supports LIA catalogue is called OPD pipeline which stands for Online Pickup and Delivery
+There’s other pipeline called DMAS pipeline which has been running for a very long time. It stands for Digital Marketing Asset Service. This pipeline has been supporting PLA and other attributes for data sharing catalogues for longer time. So there has been no need to build separate data pipeline for PLA catalogue. But OPD pipeline is something we built at later point of time after DMAS.
+Below is the architecture of OPD pipeline
+ 
+
+
+This pipeline consumes data from different kafka topics (6 topics precisely) as shown in the image and ETLs them. This happens on frequency basis by an airflow DAG. So basically it takes pricing, inventory, fulfillment, offer publish status, offer listing status etc.
+
+Instruction for RAG: I don’t have much context about these up streams. Anticipate the necessary upstreams and give me information if you find something or some correlation.
+Through Airflow and Spark jobs, collating the data from these sources, ETL the data saving and sending the data to down streams happen.
+ 
+From what I know, these 6 topics has 6 respective top level folders in GCS buckets. Then for each date and hour, topics data will be stored in parquet files. That means if the data is from Inventory event topic. GCS bucket will have the name as Inventory Event Topic and if the date is 2024-03-15, and the hour of job performing is let’s say UTC 14:00 then the file name could be something like this
+2024_03_15_14_00.parquet
+ 
+And another airflow DAG takes these parquet files, stores them in BQ table. Before saving into BQ table it calculates deltas. Delta calculation parameters could be vastly different types.
+For example if item itself is new in the inventory, new record will be created. For existing item, pricing, inventory, availability also could vary very high frequently. If there’s any change in theose parameters, they will be updated if not they will be left as they were. Remember we could be dealing with millions of items and offers here.
+ 
+Once the BQ table is updated, Another airflow Dag runs to feed this hourly data into DMAS Kafka topic. And from there all the down stream steps happen one after the other as it can be observed from the architecture diagram.
+From DMAS, SEM uploader DAG takes in the data, performs API calls to update the up to date info to Google Merchant Center (GMC).
+ 
+Instruction for RAG: Feel free to add some more details as you find them.
+ 
+ 
+The above picture shows the DAG flow.
+
+Transactability calculation- Once we get the enough information from the offloading jobs, The park job itself calculates something called transactability. Transactablity, if I put in in my own understanding, wether the item can be made available in such a way that it can be added to cart or not. For example, if most of the details that we have made that item as addable to cart except that in inventory it says unavailable, then al together the item is not transactable. We maintain a flag for it when saving it into our final destination i.e the BT table. Remember that the spark custer maintains these as partitioned nodes. BT and Hive as you know are not actual tables but more or less like a views on top of partitions. I don’t have much context about how these partitions, clustering, BT/Hive works but it would be great if you could fill in these details for me to the best of your knowledge.
+Also below are the params to make item transactable
+listingStatus: LISTED
+Availability(inventory): AVILABLE
+offerPublishStatus: PUBLISHED
+productPublishStatus: PUBLISHED
+eligible = true (fulfilment type is pickup or delivery)
+Price != null
+Below is the architecture of DMAS. It looks simple but I give you full freedom to expand this section and use your best knowledge to understand it.
+
+
+One of the other key task that I worked at when I am at Walmart is, Enhancing Campaign management create and update flows. 
+ 
+ 
+ 
+Intro
+I’m Sai Srinivas Lakkakula — you can call me Sai. I have around 6+ years of work experience as a Software Engineer, mainly building large-scale applications and systems.
+Currently, I work at Walmart Global Tech as a Software Engineer in the Marketing and AdTech organization.
+In our team, we facilitate end-users — whether it’s our internal marketing teams or external sellers — to manage their advertisement campaigns seamlessly across marketing partners like Google, Meta, Bing, Pinterest, and others.
+We build applications and services that allow users to automatically create, update, pause, resume, or stop campaigns across these channels with just a few clicks.
+Beyond building the core services, I also work closely with our data engineering and infrastructure teams — consulting and collaborating whenever needed to ensure smooth data sharing pipelines between Walmart systems and our advertisement partners.
+ 
+ 
+https://excalidraw.com/#json=FIIu3ztzVksLgnHEhxkc7,9kkcZOH_caNymuZKhvZzxg
+ 
+Sample spark job at work:
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.functions._
+import scala.io.Source
+import java.nio.file.{Files, Paths}
+import java.nio.charset.StandardCharsets
+import java.sql.{Connection, DriverManager, ResultSet}
+ 
+object CampaignBatchProcessor {
+ 
+  case class Item(itemId: String)
+ 
+  def main(args: Array[String]): Unit = {
+ 
+        val spark = SparkSession.builder()
+          .appName("CampaignBatchProcessor")
+          .master("local[*]")
+          .getOrCreate()
+ 
+        import spark.implicits._
+ 
+        // Step 1: Read input CSV containing items
+        val inputFilePath = "path_to_items.csv"
+        val itemsDF = spark.read.option("header", "true").csv(inputFilePath).as[Item]
+ 
+        // Step 2: Assign batch numbers
+        val batchSize = 1000
+        val itemsWithBatchId = itemsDF.rdd.zipWithIndex().map {
+          case (item, idx) => (item.itemId, (idx / batchSize).toInt)
+        }.toDF("itemId", "batchId")
+ 
+        // Step 3: Group items by batch
+        val batches = itemsWithBatchId.groupBy("batchId").agg(collect_list("itemId").alias("items"))
+ 
+        // Step 4: Process each batch in parallel
+        batches.foreachPartition { partitionIterator =>
+          partitionIterator.foreach { row =>
+            val batchId = row.getInt(0)
+            val itemList = row.getSeq[String](1)
+ 
+            if (batchId == 0) {
+              val graphqlPayload = populateGraphQLTemplate("templates/create_campaign.graphql", itemList)
+              val createResponse = postGraphQLPayload(graphqlPayload)
+              println(s"Created Campaign: ${createResponse}")
+              pollOperationStatus("dummy_create_operation_id")
+            } else {
+              val graphqlPayload = populateGraphQLTemplate("templates/update_campaign.graphql", itemList)
+              val updateResponse = postGraphQLPayload(graphqlPayload)
+              println(s"Updated Campaign Batch $batchId: ${updateResponse}")
+              pollOperationStatus("dummy_update_operation_id")
+            }
+          }
+        }
+ 
+        spark.stop()
+  }
+ 
+  // Method to populate GraphQL template with item IDs
+  def populateGraphQLTemplate(templatePath: String, items: Seq[String]): String = {
+        val template = Source.fromFile(templatePath).getLines().mkString("\n")
+        val itemsFormatted = items.map(id => s"\"$id\"").mkString(", ")
+        template.replace("$ITEM_LIST$", itemsFormatted)
+  }
+ 
+  // Dummy method to simulate posting GraphQL payload
+  def postGraphQLPayload(payload: String): String = {
+        println(s"Posting Payload: $payload")
+        "Success"
+  }
+ 
+  // MySQL Polling for operation status
+  def pollOperationStatus(operationId: String): Unit = {
+        val jdbcUrl = "jdbc:mysql://your_mysql_host:3306/your_database"
+        val dbUser = "your_username"
+        val dbPassword = "your_password"
+ 
+        var connection: Connection = null
+        try {
+          connection = DriverManager.getConnection(jdbcUrl, dbUser, dbPassword)
+          var status = "PENDING"
+          var attempts = 0
+          val maxAttempts = 10
+ 
+          while (status == "PENDING" && attempts < maxAttempts) {
+            val stmt = connection.createStatement()
+            val rs: ResultSet = stmt.executeQuery(s"SELECT status FROM operation_status WHERE operation_id = '$operationId'")
+            if (rs.next()) {
+              status = rs.getString("status")
+              println(s"Current Status: $status")
+            }
+            rs.close()
+            stmt.close()
+ 
+            if (status == "PENDING") {
+              Thread.sleep(5000) // wait before retry
+              attempts += 1
+            }
+          }
+ 
+          if (status == "COMPLETED") {
+            println(s"Operation $operationId completed successfully.")
+          } else if (status == "FAILED") {
+            println(s"Operation $operationId failed.")
+          } else {
+            println(s"Operation $operationId timed out waiting for completion.")
+          }
+        } catch {
+          case e: Exception => e.printStackTrace()
+        } finally {
+          if (connection != null) connection.close()
+        }
+  }
+}
